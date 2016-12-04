@@ -53,7 +53,14 @@ GIF89
 
 so lets try it :
 
+Upload File shell langsung
 ![trying to upload file shell](http://k1m0ch1.github.io/images/upload-file-1.png)
+
+ternyata terdapat whitelist
 ![trying to upload file shell](http://k1m0ch1.github.io/images/upload-file-blocked.png)
+
+lalu di coba upload file shell yang sudah diedit
 ![trying to upload file shell](http://k1m0ch1.github.io/images/upload-file-2.png)
+
+pwnd
 ![trying to upload file shell](http://k1m0ch1.github.io/images/pwnd.png)
