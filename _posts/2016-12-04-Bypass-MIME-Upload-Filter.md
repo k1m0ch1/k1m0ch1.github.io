@@ -8,11 +8,11 @@ comments: false
  
 Untuk melakukan upload filter yang dilakukan whitelist dalam bentuk MIME seperti muncul pada code PHP berikut :
 
-```php
-		if($imageinfo['mime'] != 'image/gif' && $imageinfo['mime'] != 'image/jpeg' && $imageinfo['mime'] != 'image/jpg'&& $imageinfo['mime'] != 'image/png') {
-			die('Error 002');
-		}
-
+```python
+if($imageinfo['mime'] != 'image/gif' && 
+   $imageinfo['mime'] != 'image/jpeg' && 
+   $imageinfo['mime'] != 'image/jpg'&& 
+   $imageinfo['mime'] != 'image/png') { die('Error 002'); }
 ```
 
 disebutkan pada code tersebut bahwa hanya diperbolehkan untuk upload file yang dibatasi dengan MIME GIF, JPG dan PNG.
