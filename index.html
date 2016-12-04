@@ -6,15 +6,15 @@ title: Home
 {% include intro.html %}
 
 <section class="post-list">
-  <div class="container">
+  <div class="container" >
     {% for post in site.posts %}
       {% unless post.next %}
-        <h2 class="category-title">{{ post.date | date: '%F %Y' }}</h2>
+        <h2 class="category-title">{{ post.date | date: '%B %Y' }}</h2>
       {% else %}
-        {% capture year %}{{ post.date | date: '%F %Y' }}{% endcapture %}
-        {% capture nyear %}{{ post.next.date | date: '%F %Y' }}{% endcapture %}
+        {% capture year %}{{ post.date | date: '%B %Y' }}{% endcapture %}
+        {% capture nyear %}{{ post.next.date | date: '%B %Y' }}{% endcapture %}
         {% if year != nyear %}
-          <h2 class="category-title">{{ post.date | date: '%F %Y' }}</h2>
+          <h2 class="category-title">{{ post.date | date: '%B %Y' }}</h2>
         {% endif %}
       {% endunless %}
       <article class="post-item">
