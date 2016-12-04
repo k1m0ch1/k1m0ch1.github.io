@@ -9,12 +9,12 @@ title: Home
   <div class="container">
     {% for post in site.posts %}
       {% unless post.next %}
-        <h2 class="category-title">{{ post.date | date: '%b' }}</h2>
+        <h2 class="category-title">{{ post.date | date: '%F %Y' }}</h2>
       {% else %}
-        {% capture year %}{{ post.date | date: '%d' }}{% endcapture %}
-        {% capture nyear %}{{ post.next.date | date: '%d' }}{% endcapture %}
+        {% capture year %}{{ post.date | date: '%F %Y' }}{% endcapture %}
+        {% capture nyear %}{{ post.next.date | date: '%F %Y' }}{% endcapture %}
         {% if year != nyear %}
-          <h2 class="category-title">{{ post.date | date: '%d' }}</h2>
+          <h2 class="category-title">{{ post.date | date: '%F %Y' }}</h2>
         {% endif %}
       {% endunless %}
       <article class="post-item">
