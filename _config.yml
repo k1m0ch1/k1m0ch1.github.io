@@ -1,0 +1,59 @@
+
+# SEO settings
+title: "k1m0ch1"
+title2: "Blog" # default: ""
+description: "free thoughtfull from my mind"
+keywords: ""
+url: http://k1m0ch1.github.io/ # site url
+baseurl: "" # apply repo name if use it under gh-pages branch
+# baseurl: null # apply null if repo name is something like username.github.io
+
+google_analytics: UA-XXXXX-XX
+repo: http://github.com/k1m0ch1/k1m0ch1.github.io
+disqus_shortname: "k1m0ch1"
+twitter_username: "yahya_kimochi"
+comments: true 
+
+# Build settings
+permalink   : /:year/:title/
+markdown    : kramdown
+highlighter : rouge
+
+source: ./
+destination: ./_site
+
+# Sass configuration
+sass:
+  sass_dir: assets/scss
+  style: compressed # expanded
+
+# Author settings
+author:
+  name     : "Yahya F. Al Fatih"
+  job      : "R&D Security Engineer"
+  bio      : "."
+  thumb    : /images/author.jpg
+  email    : yahya.kimochi@gmail.com
+  url      :  
+  github   : http://github.com/k1m0ch1
+  twitter  : http://twitter.com/yahya_kimochi
+  facebook : https://www.facebook.com/yahya.kimochi
+  linkedin :  
+
+# social settings
+og_locale: "en_US"
+twitter_card: "summary_large_image"
+twitter_site: "@yahya_kimochi"
+
+gems:
+  - bourbon
+  - jekyll-paginate
+
+# navbar pages
+navbar:
+  - slug : about
+    title: About
+  - slug : blog
+    title: Blog
+
+exclude: ["gulp", "node_modules", "bower", "bower_components", "config.rb", "src", "Gemfile", "Gemfile.lock", ".rvmrc", ".rbenv-version", "package.json", "gulpfile.js", "README.md", "Rakefile", "changelog.md"]
