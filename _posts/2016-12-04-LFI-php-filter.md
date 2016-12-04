@@ -27,7 +27,8 @@ sebelumnya harus di penuhi beberapa kebutuhan ini :
 1. File harus valid PHP syntax
 2. file yang di load harus mempunyai akhiran ekstensi PHP
 
-so untuk load file index.php pake 
+so untuk load file index.php pake
+
 ```
 php://filter/convert.base64-encode/resource=index
 
