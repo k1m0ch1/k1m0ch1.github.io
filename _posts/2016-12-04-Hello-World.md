@@ -9,4 +9,4 @@ When epicurus said about the three way of happines about to _culture_ mind rathe
 
 There is many ways of culturing your mind, writing, reading, learning. So I start this blog because I will reduce my worthless daily activity with culturing my mind.
 
-(http://k1m0ch1.github.io/images/old-man-writing.jpg)
+!(http://k1m0ch1.github.io/images/old-man-writing.jpg)
