@@ -13,4 +13,6 @@ layout: default
   </div>
 </article>
 
-{% include comments.html %}
+{% if site.disqus_shortname %}
+	{% include comments.html %}
+{% endif %}
