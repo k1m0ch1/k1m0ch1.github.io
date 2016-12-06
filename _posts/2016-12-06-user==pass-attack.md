@@ -28,7 +28,7 @@ pada contoh kali ini saya tidak akan menggunakan tools bruteforce karena seranga
 
 fast forward dan ternyata pada user *10005* berhasil dilakukan berikut juga dengan user *10007*
 
-![haha](http://k1m0ch1.github.io/images/sucess-attempt-1.png)
+![haha](http://k1m0ch1.github.io/images/success-attempt-1.png)
 
 next nya saya bikin script python sederhana buat post login dan get cookies di percantik dengan beautifulsoup4 saya looping dari user *10000* sampai dengan user *11111*
 
