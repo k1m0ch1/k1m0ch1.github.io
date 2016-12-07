@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Bypass MIME Upload Filter"
+title:  "Bypass MIME Upload Filter - Header Manipulation"
 date:   2016-12-04 16:01:00 +0700
 categories: bypass upload MIME filter extension
 comments: false
