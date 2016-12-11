@@ -7,7 +7,7 @@ keywords: ""
 url: http://k1m0ch1.github.io/ # site url
 baseurl: "" # apply repo name if use it under gh-pages branch
 # baseurl: null # apply null if repo name is something like username.github.io
-paginate: 2
+paginate: 10
 paginate_path: "/page:num/"
 
 google_analytics: UA-XXXXX-XX
