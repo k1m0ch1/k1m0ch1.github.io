@@ -23,15 +23,15 @@ title: Home
       </article>
     {% endfor %}
     {% if paginator.previous_page %}
-      <a href="{{ paginator.previous_page_path }}" class="previous post-meta date-label" >**Previous**</a>
+      <a href="{{ paginator.previous_page_path }}" class="previous post-meta date-label" ><b>Previous</b></a>
     {% else %}
       <span class="previous post-meta date-label">Previous</span>
     {% endif %}
-    <span class="post-meta date-label">Page: **{{ paginator.page }}** of **{{ paginator.total_pages }}**</span>
+    <span class="post-meta date-label">Page: <b>{{ paginator.page }}</b> of <b>{{ paginator.total_pages }}</b></span>
     {% if paginator.next_page %}
-      <a href="{{ paginator.next_page_path }}" class="next post-meta date-label">**Next**</a>
+      <a href="{{ paginator.next_page_path }}" class="next post-meta date-label"><b>Next</b></a>
     {% else %}
-      <span class="next post-meta date-label">**Next**</span>
+      <span class="next post-meta date-label"><b>Next</b></span>
     {% endif %}
   </div>
 </section>
