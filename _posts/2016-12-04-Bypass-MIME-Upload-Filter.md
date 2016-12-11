@@ -28,13 +28,13 @@ Maka dari itu artikel ini bertujuan utama untuk mengelabui fungsi utama dari php
 Setiap File memiliki **first byte** yang berbeda beda, berikut saya jelaskan beberapa **first byte** untuk file GIF, JPG dan PNG
 
 GIF : pada first offset memiliki string **GIF89** atau 5 first byte nya **4749 4638 39**
-![GIF first offest](http://k1m0ch1.github.io/images/first-byte-GIF.png)
+> ![GIF first offest](http://k1m0ch1.github.io/images/first-byte-GIF.png)
 
 PNG : pada first offset memiliki string **.PNG** atau 5 first byte nyte **8950 4e47 0d**
-![PNG first offest](http://k1m0ch1.github.io/images/first-byte-png.png)
+> ![PNG first offest](http://k1m0ch1.github.io/images/first-byte-png.png)
 
 JPG : pada first offset memiliki string **JFIF** JPG memiliki null content sebanyak 6 byte, jadi first bytenya dimulai dari byte 7 **4a46 4946 00**
-![JPG first offest](http://k1m0ch1.github.io/images/first-byte-JPG.png)
+> ![JPG first offest](http://k1m0ch1.github.io/images/first-byte-JPG.png)
 
 jadi first offset tersebut yang mengidtentifikasikan bahwa file tersebut tipe datanya seperti demikian.
 
@@ -56,16 +56,16 @@ so lets try it
 
 Upload File shell langsung
 
-![trying to upload file shell](http://k1m0ch1.github.io/images/upload-file-1.png)
+> ![trying to upload file shell](http://k1m0ch1.github.io/images/upload-file-1.png)
 
 ternyata terdapat whitelist
 
-![trying to upload file shell](http://k1m0ch1.github.io/images/upload-file-blocked.png)
+> ![trying to upload file shell](http://k1m0ch1.github.io/images/upload-file-blocked.png)
 
 lalu di coba upload file shell yang sudah diedit
 
-![trying to upload file shell](http://k1m0ch1.github.io/images/upload-file-2.png)
+> ![trying to upload file shell](http://k1m0ch1.github.io/images/upload-file-2.png)
 
 pwnd
 
-![trying to upload file shell](http://k1m0ch1.github.io/images/pwnd.png)
+> ![trying to upload file shell](http://k1m0ch1.github.io/images/pwnd.png)
