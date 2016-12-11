@@ -22,18 +22,20 @@ title: Home
         <div class="article-title"><a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></div>
       </article>
     {% endfor %}
+  </div>
+  <div class="container">
     <article class="post-item">
-    {% if paginator.previous_page %}
-      <a href="{{ paginator.previous_page_path }}" class="previous post-meta date-label" ><b>Previous</b></a>
-    {% else %}
-      <span class="previous post-meta date-label"><b>Previous</b></span>
-    {% endif %}
-    <span class="post-meta date-label">Page: <b>{{ paginator.page }}</b> of <b>{{ paginator.total_pages }}</b></span>
-    {% if paginator.next_page %}
-      <a href="{{ paginator.next_page_path }}" class="next post-meta date-label"><b>Next</b></a>
-    {% else %}
-      <span class="next post-meta date-label"><b>Next</b></span>
-    {% endif %}
+      {% if paginator.previous_page %}
+        <a href="{{ paginator.previous_page_path }}" class="previous post-meta date-label" ><b>Previous</b></a>
+      {% else %}
+        <span class="previous post-meta date-label"><b>Previous</b></span>
+      {% endif %}
+      <span class="post-meta date-label">Page: <b>{{ paginator.page }}</b> of <b>{{ paginator.total_pages }}</b></span>
+      {% if paginator.next_page %}
+        <a href="{{ paginator.next_page_path }}" class="next post-meta date-label"><b>Next</b></a>
+      {% else %}
+        <span class="next post-meta date-label"><b>Next</b></span>
+      {% endif %}
     </article>
   </div>
 </section>
