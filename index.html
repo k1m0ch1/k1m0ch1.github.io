@@ -22,18 +22,16 @@ title: Home
         <div class="article-title"><a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></div>
       </article>
     {% endfor %}
-    <div class="pagination">
-      {% if paginator.previous_page %}
-        <a href="{{ paginator.previous_page_path }}" class="post-meta date-label">Previous</a>
-      {% else %}
-        <span class="post-meta date-label">Previous</span>
-      {% endif %}
-      <span class="post-meta date-label">Page: {{ paginator.page }} of {{ paginator.total_pages }}</span>
-      {% if paginator.next_page %}
-        <a href="{{ paginator.next_page_path }}" class="post-meta date-label">Next</a>
-      {% else %}
-        <span class="post-meta date-label">Next</span>
-      {% endif %}
-    </div>
+    {% if paginator.previous_page %}
+      <a href="{{ paginator.previous_page_path }}" class="post-meta date-label">Previous</a>
+    {% else %}
+      <span class="post-meta date-label">Previous</span>
+    {% endif %}
+    <span class="post-meta date-label">Page: {{ paginator.page }} of {{ paginator.total_pages }}</span>
+    {% if paginator.next_page %}
+      <a href="{{ paginator.next_page_path }}" class="post-meta date-label">Next</a>
+    {% else %}
+      <span class="post-meta date-label">Next</span>
+    {% endif %}
   </div>
 </section>
