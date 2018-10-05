@@ -1,6 +1,4 @@
 
-# 5 Nilai Dasar Pancasila Web Performance
-
 Salah satu alasan utama munculnya user bounce adalah turunnya performance dari web, terdapat dua faktor penyebab web performance menurun, penurunan web performance atau jaringan usernya memang lambat, tapi hal yang paling mudah untuk di tingkatkan adalah websitenya, tapi ada masalah lain jika kita berbicara tentang websitenya, disaat developer atau sys engineer sudah melakukan segala hal untuk meningkatkan web performance kadang masih saja kebingungan “what else to do” supaya performance ini naik.
 
 ![comic by xkcd](https://cdn-images-1.medium.com/max/2000/0*3tl79QaAckxXGz4A.png)*comic by xkcd*

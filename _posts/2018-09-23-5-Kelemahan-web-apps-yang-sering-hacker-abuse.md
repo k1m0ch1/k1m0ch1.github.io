@@ -1,6 +1,3 @@
-
-# 5 kelemahan web apps yang sering hacker abuse
-
 Sering kali web developer baru menyadari betapa pentingnya keamanan setelah web atau aplikasinya sudah diretas atau mendapat ancaman dari hacker berupa email. Kesulitan dari pengembangan pun mulai meningkat karena yang harus di tangkis adalah lubang keamanan, dua hal yang berbeda antara lubang yang biasa disebut bug dimana sebuah kesalahan teknikal ataupun bisnis yang menyebabkan munculnya error pada aplikasi yang biasanya muncul dengan ukuran seperti High, Medium, Low dan keamanan yang diukur dari tingkat resiko yang muncul dibagi seperti Confidential (kerahasiaan), Integrity(keutuhan) dan Availability (ketersediaan).
 
 ![hacker sexually attracted to your vulnerable app](https://cdn-images-1.medium.com/max/2000/0*sadHMdVESMNVtNg9.jpg)*hacker sexually attracted to your vulnerable app*

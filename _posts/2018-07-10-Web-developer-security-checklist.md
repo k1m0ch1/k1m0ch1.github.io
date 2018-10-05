@@ -1,6 +1,3 @@
-
-# Web developer security checklist
-
 Dari data pada website zone-h.org dijelaskan hampir satu hari hacker mampu melakukan deface sebanyak 5 sampai 20 website bersamaan.
 
 ![sumber zone-h.org](https://cdn-images-1.medium.com/max/2000/1*zaWCTV52MyjAq6Vx2sM1Pg.png)*sumber zone-h.org*

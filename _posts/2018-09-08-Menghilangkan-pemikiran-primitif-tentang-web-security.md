@@ -1,6 +1,4 @@
 
-# Menghilangkan pemikiran primitif tentang web security.
-
 Modern ini web security belum menjadi salah satu kebutuhan penting untuk developer pada pengembangan aplikasi web, karena pada umumnya developer akan melakukan pengembangan keamanan setelah masuk ke dalam masa production ataupun setelah mendapatkan hasil testing. Hal ini adalah hal wajar karena banyak pengembangan web menggunakan model agile. Dalam pembahasan ini penulis akan menjelaskan tentang pemikiran awam tentang security dan best practice dalam melakukan pengamanan web.
 
 Buat para orang awam kalo berbicara tentang security pada umumnya terpintas pikiran “**aplikasi atau alat untuk mengamankan sistem**” atau biasa disebut “firewall”, dan biasanya kita sebagai orang awam cukup dengan memasang firewall **terbaru dan terupdate **saja sudah merasa cukup aman. Pada dasarnya pemikiran ini wajar akan tetapi dengan pemikiran ini pula banyak muncul pertanyaan yang meragukan, salah satunya “gimana jadinya kalo firewall-nya kena hack?”, “apakah firewall saja cukup?”, “apakah memasang firewall di dalam firewall lebih aman?".
