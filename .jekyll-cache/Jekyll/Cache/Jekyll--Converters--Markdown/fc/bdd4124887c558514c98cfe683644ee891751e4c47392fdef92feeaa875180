@@ -1,0 +1,58 @@
+I"�<p>Beberapa orang pasti pernah panik, terjebak di terminal tiba tiba buka editor dan ga bisa keluar, antara bakal nanya orang atau terminalnya di force close, akhirnya bisa keluar dengan perintah <code class="highlighter-rouge">:!q</code></p>
+
+<p><img src="https://miro.medium.com/max/638/1*lu1ks_Ac1YyXmyeRa0Dk9A.png" alt="" /></p>
+
+<p>VIM, File text editor yang jalan di terminal, agak aneh sebenernya ngoding di terminal, percaya ga percaya ini membuat ngoding kita jadi lebih produktif. Singkat cerita saya sering banget nontonin videonya William Lin di youtube, dia suka share solving coding challenge dari google, biasanya solving algorith problem, kagumnya saya dia bisa solving semua masalahnya cukup 1 jam saja, dan saya liat dia ngoding ga muluk muluk cukup pake VIM, yang artinya interaksi ngoding dia lebih banyak menggunakan keyboard, karena sesungguhnya seberapa banyak kita menghabiskan waktu pindah tangan dari keyboard ke mouse cuman buat cari file yang mau di buka, hapus baris ataupun men-highlight text.</p>
+
+<p>Setelah mencari referensi tentang VIM, akhirnya saya menantang diri saya sendiri untuk mencoba menggunakan VIM selama satu minggu, demi meningkatkan produktifitas ngoding, biarpun terkadang masih “cheat” pake VSCode 👀.</p>
+
+<h1 id="hari-pertama">Hari Pertama</h1>
+<p>Baca baca dulu tentang VIM, beberapa artikel menarik tentang VIM bisa baca disini :
+https://medium.com/better-programming/understanding-the-efficiency-of-vim-d6a5ab8feb2d</p>
+
+<p>Setelah itu coba terjun main game VIM, bisa akses disini https://vim-adventures.com/, gamenya seru dan interaktif</p>
+
+<p><img src="https://miro.medium.com/max/649/1*6m_wb_Zoa_c09fyB_gvdyA.png" alt="" /></p>
+
+<p>#Hari Kedua
+Install VIM langsung buka project dan start ngoding pake VIM, aku disini pakai <code class="highlighter-rouge">gnome-terminal</code> dimana banyak shortcutnya juga buat swithching window, dimana hari ini saya mengetahui</p>
+
+<ol>
+  <li>bikin tab baru <code class="highlighter-rouge">Ctrl + Shift + n</code></li>
+  <li>switching window <code class="highlighter-rouge">Alt + 1</code> <code class="highlighter-rouge">Alt + 2</code> <code class="highlighter-rouge">Alt + angka</code> dan dari sini saya menyadari switching tab chrome juga bisa pake itu</li>
+  <li>start ngoding dengan <code class="highlighter-rouge">vim namafile.py</code></li>
+  <li>membiasakan apa itu <code class="highlighter-rouge">Normal Mode (esc)</code> <code class="highlighter-rouge">Insert Mode ( i/a )</code> <code class="highlighter-rouge">Visual Mode (v)</code></li>
+  <li>membiasakan save file dengan <code class="highlighter-rouge">:w</code> buat save file tanpa close editor dan juga <code class="highlighter-rouge">:wq</code> atau <code class="highlighter-rouge">:x</code> save file dan close editor, dan <code class="highlighter-rouge">:q!</code> close editor tanpa simpan file</li>
+</ol>
+
+<h1 id="hari-ketiga">Hari Ketiga</h1>
+
+<p>setelah terbiasa buka file dan file switching dengan switching window, baru lanjut ke split editor dan copy paste code</p>
+
+<p>1.menggunakan <code class="highlighter-rouge">:vsplit namafile</code> untuk mensplit window vertical, kalau mau horizontal tinggal <code class="highlighter-rouge">:split namafile</code> tampilannya jadi seperti berikut</p>
+
+<p><img src="https://miro.medium.com/max/700/1*McZX0wNEsjKN8aa8Q2acBQ.png" alt="" /></p>
+
+<ol>
+  <li>
+    <p>membiasakan copy paste dengan <code class="highlighter-rouge">Visual mode</code> dan copy dengan <code class="highlighter-rouge">yank mode</code>, caranya setelah di highlight pada <code class="highlighter-rouge">Visual mode</code> langsung tekan  <code class="highlighter-rouge">y</code> dan untuk paste langsung tekan <code class="highlighter-rouge">p</code></p>
+  </li>
+  <li>
+    <p>membiasakan menghapus pada <code class="highlighter-rouge">Normal mode</code> , <code class="highlighter-rouge">dd</code> untuk hapus baris, <code class="highlighter-rouge">x</code> untuk hapus karakter</p>
+  </li>
+  <li>
+    <p>membiasakan untuk undo dengan pencet <code class="highlighter-rouge">u</code> pada <code class="highlighter-rouge">Normal mode</code> dan <code class="highlighter-rouge">&lt;C-R&gt;</code> untuk redo biasanya itu tombol <code class="highlighter-rouge">Enter</code></p>
+  </li>
+  <li>
+    <p>membiasakan mencari text pada <code class="highlighter-rouge">Normal mode</code> , dan ketik <code class="highlighter-rouge">/katayangdicari</code> dan pencet <code class="highlighter-rouge">n</code> untuk lanjut cari</p>
+  </li>
+</ol>
+
+<p>saya biasakan ini sampai hari ke tujuh.</p>
+
+<p>Hasilnya, cukup produktif, saya ga lama lagi buat ngoding, masalahnya adalah belajarnya emang harus tekun banget, dan emang susah banget buat di awal kalau di realisasikan pada learning curve kira kira seperti ini</p>
+
+<p><img src="https://miro.medium.com/max/700/0*aq4f42lTdu3QMvPJ.jpeg" alt="" /></p>
+
+<p>Kurang lebih itu pengalaman saya satu minggu menggunakan VIM dengan langsung terjun ngoding di keseharian kerja saya, mungkin nanti aku share lagi setelah pengalaman saya setelah menggunakan VIM selama satu bulan.</p>
+:ET

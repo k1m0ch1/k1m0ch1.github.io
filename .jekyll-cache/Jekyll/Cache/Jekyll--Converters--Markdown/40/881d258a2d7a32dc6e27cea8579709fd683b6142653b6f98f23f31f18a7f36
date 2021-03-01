@@ -1,0 +1,46 @@
+I"B<p>note : sebelum masuk ke dalam materi ini, tolong untuk dipahami dari artikel berikut <a href="https://medium.com/sadulur/rtfg-antara-budaya-kebutuhan-9267f995e464#.fy9nqrnt3">RTFG==Antara budaya kebutuhan</a></p>
+
+<p>“How to Hack Website” “Hack Joomla” “Hack Wordpress” bla bla bla ini salah satu keyword yang sering ditemukan di google pada saat mau mencoba menulis “hack” keyword. yahh terlalu script kiddies lah kita kalo udah nyoba hack pake ginian, biasanya hacker script kiddies nyari jalan pintas buat hack website.</p>
+
+<blockquote>
+  <p><img src="http://k1m0ch1.github.io/images/keyword-google-1.png" alt="Keyword Hack website" /></p>
+</blockquote>
+
+<p>Disini saya akan jelaskan tentang basic web hacking, gimana cara hacking sebuah website secara proper dan nda loncat loncat buat melakukan audit dalam sebuah website</p>
+
+<p>ada beberapa aspek untuk memulai melakukan basic web hacking, karena kita butuh dasar tata cara hacking yang bisa menghasilkan mampu untuk take over server. Berikut aspek aspek nya :</p>
+
+<h1 id="1-rtfg--read-the-fucking-google-">1. RTFG ( Read The Fucking Google )</h1>
+
+<p>Simplenya banyak banyak googling buat dapat informasi latest untuk mendapatkan serangan serangan terbaru dan implementasi serangannya ke target, baca juga <a href="https://medium.com/sadulur/rtfg-antara-budaya-kebutuhan-9267f995e464#.fy9nqrnt3">RTFG==Antara budaya kebutuhan</a></p>
+
+<h1 id="2-standarisasi">2. Standarisasi</h1>
+
+<p>Patokan atau supaya kita memahami apa saja yang bisa kita hack, atau teknik teknik yang bisa kita gunakan sebagai cara cara untuk menyerang target, sederhananya dapat menggunakan <a href="https://www.owasp.org/index.php/Top_10_2013-Top_10">Top 10 OWASP 2014</a>, ini patokan jelas juga supaya kita nda asal asalan menyerang target</p>
+
+<blockquote>
+  <p><img src="http://k1m0ch1.github.io/images/owasp-top-10-2014.jpg" alt="OWASP Top 10 2014" /></p>
+</blockquote>
+
+<h1 id="3-tools">3. Tools</h1>
+
+<p>ok ini terlalu males sih jelasinnya, soalnya karena tools ini terlalu general dan banyak sekali. Sederhananya seperti ini dilihat dari standarisasi, masing masing poin itu mempunyai tools masing masing. Jadi PR untuk yang baru ngerti tentang hacking, coba pelajari dan riset masing masing dari setiap kelemahan kelemahan Web yang di listing pada poin standarisasi.</p>
+
+<p>Toolsnya banyak ko, salah satunya sqlmap, dirsearch, wpscan, joomlavs dll mungkin saya punnya materi khusus untuk tools ini.</p>
+
+<blockquote>
+  <p><img src="http://k1m0ch1.github.io/images/tools-sqlmap-1.png" alt="Tools Sqlmap" /></p>
+</blockquote>
+
+<h1 id="4-analisa-struktur-aplikasi-website">4. Analisa Struktur aplikasi/ website</h1>
+
+<p>Ini butuh pemahanan programming atau sederhananya direktori listing atau fungsi dari beberapa aplikasi atau website, karena ada kemungkinan kelemahan yang ngga sengaja developer lakukan mengakibatkan hal yang fatal</p>
+
+<blockquote>
+  <p><img src="http://k1m0ch1.github.io/images/serangan-mudah.png" alt="Tools Sqlmap" /></p>
+</blockquote>
+
+<h1 id="5-rtfg--read-the-fucking-google-">5. RTFG ( Read The Fucking Google )</h1>
+
+<p>Kalo ga nemu googling lagi</p>
+:ET

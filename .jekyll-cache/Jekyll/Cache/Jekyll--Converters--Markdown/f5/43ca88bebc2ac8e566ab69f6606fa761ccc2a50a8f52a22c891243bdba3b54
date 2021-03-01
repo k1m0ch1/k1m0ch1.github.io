@@ -1,0 +1,142 @@
+I"&,<p>Salah satu alasan utama munculnya user bounce adalah turunnya performance dari web, terdapat dua faktor penyebab web performance menurun, penurunan web performance atau jaringan usernya memang lambat, tapi hal yang paling mudah untuk di tingkatkan adalah websitenya, tapi ada masalah lain jika kita berbicara tentang websitenya, disaat developer atau sys engineer sudah melakukan segala hal untuk meningkatkan web performance kadang masih saja kebingungan “what else to do” supaya performance ini naik.</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2000/0*3tl79QaAckxXGz4A.png" alt="comic by xkcd" /><em>comic by xkcd</em></p>
+
+<p>Pada dasarnya kadang kita suka melewati hal hal mendasar yang sebenarnya harus dipahami dulu sebelum mengeluarkan keputusan dalam meningkatkan performance. Penulis membuat <strong>Pancasila Web Performance</strong> yang dimaksudkan agar kita sebagai developer web mempunyai landasan landasan dalam meningkatkan web performance. <strong>Pancasila Web Performance</strong> ini dibuat dari kumpulan kesalahan para <a href="https://www.keycdn.com/blog/web-performance-advice/">expert</a> dalam meningkatkan web performance, pengalaman ini penulis olah menjadi landasan landasan utama dalam membangun web performance.</p>
+
+<p>Tujuan utama penulis membuat istilah Pancasila adalah, supaya hal ini yang selalu diingat oleh kita, pada saat ada pertanyaan “apa lagi yang kurang buat meningkatkan performance?” semoga jawabannya bisa ditemukan pada <strong>Pancasila Web Performance</strong> ini, berikut nilai dasar pancasila Web Performance yang penulis buat :</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2000/0*RYC1ytbW0rRj94TN.gif" alt="" /></p>
+
+<h2 id="1-image-optimization-adalah-segalanya"><strong>1. Image Optimization adalah segalanya</strong></h2>
+
+<p>Kadang kita sebagai developer terlalu fokus pada scripting performance padahal disisi lain banyak media konten yang membebani web, pelaku utamanya adalah gambar! rata rata halaman di <a href="https://httparchive.org/reports/state-of-the-web?start=latest">load sekitar 2200 KB dan sekitar 1440 KB nya adalah gambar</a>, artinya 60% halaman itu dibebankan oleh gambar!</p>
+
+<p>Banyak beberapa cara untuk mengoptimalkan gambar :</p>
+
+<ul>
+  <li>
+    <p>compressing</p>
+  </li>
+  <li>
+    <p>jangan menjalankan GZIP</p>
+  </li>
+  <li>
+    <p>cache image</p>
+  </li>
+  <li>
+    <p>File Type (PNG, Webp, JPG)</p>
+  </li>
+</ul>
+
+<h2 id="2-menggunakan-3rd-party-script-atau-framework-seminim-mungkin">2. Menggunakan 3rd party script atau framework seminim mungkin</h2>
+
+<p>Bagian ini sudah jelas dan semua orang paham kalau 3rd party scripting atau framework mampu menurunkan performance web, alasan utamanya adalah dari dependency hell dalam arti lain synchronous load script dimana script tersebut memungkinkan men-load script lain lagi yang membuat load makin lama, Chat bot, analytic, retargeting, ads, social widget, external CSS script yang di load di head secara synchronous, dll.</p>
+
+<p>Terkadang divisi marketing atau divisi non-dev-ops yang punya hak mengontrol 3rd party script atau framework ini sering kali gagal dalam memanage 3rd party dependecies, yang benar adalah mempunyai strategi dalam pemasangan 3rd party yang diselaraskan dengan User Experience.</p>
+
+<p>Beberapa tools yang dapat menghapus 3rd party yang tidak digunakan :</p>
+
+<ul>
+  <li>
+    <p><a href="https://github.com/uncss/uncss">https://github.com/uncss/uncss</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/geuis/helium-css">https://github.com/geuis/helium-css</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/webpack-contrib/purifycss-webpack">https://github.com/webpack-contrib/purifycss-webpack</a></p>
+  </li>
+  <li>
+    <p><a href="https://chrome.google.com/webstore/detail/cdfmaaeapjmacolkojefhfollmphonoh">CSS Remove and combine chrome plugin</a></p>
+  </li>
+  <li>
+    <p>snyk.io (package scanner buat check availability plugin dan vulnerability plugin)</p>
+  </li>
+</ul>
+
+<h2 id="3-mengurangi-beban-setiap-halaman">3. Mengurangi beban “setiap halaman”</h2>
+
+<p>Kadang kita sebagai developer beranggapan tolak ukur web performance kita lebih baik dengan melakukan web performance test pada halaman index , padahal belum tentu hal tersebut menentukan web performance lebih baik atau tidak, karena masih banyak dia yang halamannya penuh dengan gambar, dia yang halamannya penuh dengan chart, dan dia yang halamannya penuh dengan <a href="https://en.wikipedia.org/wiki/Dependency_hell">dependecy hell</a>.</p>
+
+<p>Kita tidak bisa menyalahkan dia yang halamannya penuh dengan chart karena mungkin dia dibuat untuk menampilkan data chart. Ada beberapa cara efektif untuk meningkatkan performance dari spesifik halaman, contoh dengan implementasi lazyload pada halaman yang berat, karena lazy load sendiri berfungsi utama di load pada saat media/ content tersebut dibutuhkan.</p>
+<blockquote>
+  <p>“Menggunakan lazyload untuk setiap penggunaan spesifik halaman, supaya setiap halaman di load seminim mungkin” — Galih pratama</p>
+</blockquote>
+
+<p><img src="https://cdn-images-1.medium.com/max/2000/0*FlyqhWp86PrMs0Py" alt="" /></p>
+
+<p>kalau membicarakan lazy load artinya ga jauh dengan asynchronous, yes, the almighty **asynchronous, **kapan dan dimana saja tempat yang cocok untuk penggunaan lazy load ini tergantung dengan kebutuhan, contohnya halaman listing item, comment section pada artikel.</p>
+
+<h2 id="4-mengurangi-segala-render-blocking">4. Mengurangi segala “render blocking”</h2>
+
+<p>Salah satu kelemahan developer kalau menggunakan library JS atau CSS kadang tidak menggunakan minification atau defer untuk optimalisasi web</p>
+
+<p>ada beberapa poin yang bisa dijalankan untuk mengurangi render blocking :</p>
+
+<ul>
+  <li>
+    <p>Jangan berketergantungan terhadap Javascript untuk load page</p>
+  </li>
+  <li>
+    <p>try server-side-rendering atau service worker</p>
+  </li>
+  <li>
+    <p>bundling all important JS in one file</p>
+  </li>
+  <li>
+    <p>Optimisasi file CSS dan JS</p>
+  </li>
+</ul>
+
+<p>Ada beberapa artikel dari medium yang cukup membantu dalam mengurangi masalah render blocking ini
+<a href="https://medium.com/wwwid/berbagai-best-practice-dalam-memuat-halaman-website-20def6652adf"><strong>Berbagai best practice dalam memuat halaman website</strong>
+<em>Berbagai best practice yang bisa kita pelajari dan optimalkan dalam memuat halaman website.</em>medium.com</a>
+<a href="https://medium.com/wwwid/service-worker-tanpa-application-shell-untuk-mempercepat-navigasi-antar-halaman-6b0d01fbe94b"><strong>Service Worker Tanpa Application Shell Untuk Mempercepat Navigasi Antar Halaman Web</strong>
+<em>Seminggu lalu saya disibukkan oleh 2 Google events yaitu Progressive Web App Road Show Indonesia yang diadakan di 2…</em>medium.com</a></p>
+
+<h2 id="5-menggunakan-perceived-performance-sebagai-tolak-ukur"><strong>5. Menggunakan perceived performance sebagai tolak ukur</strong></h2>
+
+<p>Pada umumnya kalau berbicara tentang web performance biasanya kecepatan adalah segalanya, kadang tolak ukur ini muncul dari berbagai banyak hal dari segi metric seperti, berapa detik user akses halaman, keefektifan penggunaan CDN, Time to First Byte, Compress Transfer (kadang compress transfer ini malah bisa menjadi masalah), Penggunaan keep alive, atau penggunaan cache static content. Kadang hasil dari metrik tersebut membuat kita over-analyze data, yang perlu kita lakukan adalah kita lirik dalam bentuk user perspektif.</p>
+
+<p>Dengan menganalisa user perspektif, perceived performance bisa menjadi tolak ukur yang cocok untuk performance web, karena perceived performance ini menggunakan skala seberapa cepat user berfikir tanpa perlu bertanya untuk menggunakan website, hal ini bisa menjadi hal lebih penting daripada “kecepatan” itu sendiri.</p>
+
+<p>Untuk mengukur perceived performance dapat menggunakan best practice atau checklist, beberapa contoh tolak ukur perceived performance :</p>
+
+<ul>
+  <li>Response Time, berikut waktu reaksi user pada saat buka website
+    <blockquote>
+      <p><strong>0–100ms</strong> — Instant
+<strong>100–300ms</strong> — Small perceptible delay
+<strong>300–1000ms</strong> — Machine is working
+<strong>1000+ms</strong> — Likely mental context switch
+<strong>10,000+ms</strong> — Task is abandoned</p>
+    </blockquote>
+  </li>
+  <li>Asynchronous Loading, hal yang bisa membuat user merasa wajar pada saat menunggu content yang halamannya berat.</li>
+</ul>
+
+<p><img src="https://cdn-images-1.medium.com/max/2000/0*IxpeLKt4dZzEBnSa.gif" alt="loading" /><em>loading</em>
+<a href="https://medium.com/ben-and-dion/let-people-do-asynchronous-loading-is-for-users-not-just-computers-40987de0e221"><strong>Let people do; Asynchronous loading is for users not just computers</strong>
+<em>Perceived performance and using asynchronous actions to make users happy</em>medium.com</a></p>
+
+<p>Thanks buat nyempetin baca tulisan gabut gw ini, pada dasarnya penulis membuat tulisan ini sangat panjang dan bahkan sempat membuat checklist web performance, penulis membayangkan apakah akan cukup membantu jika penulis merelease checklist web performance dan long version dari tulisan ini🤔 ?</p>
+
+<p>Let me know menarik untuk dibuat atau ada masukan lain thanks 🐣~</p>
+
+<p>Referensi</p>
+
+<p><a href="http://blog.teamtreehouse.com/perceived-performance">http://blog.teamtreehouse.com/perceived-performance</a>
+<a href="https://medium.com/wwwid/berbagai-best-practice-dalam-memuat-halaman-website-20def6652adf">https://medium.com/wwwid/berbagai-best-practice-dalam-memuat-halaman-website-20def6652adf</a>
+<a href="https://www.keycdn.com/blog/blocking-the-dom/">https://www.keycdn.com/blog/blocking-the-dom/</a>
+<a href="https://www.keycdn.com/blog/web-performance-advice-2018/">https://www.keycdn.com/blog/web-performance-advice-2018/</a>
+<a href="https://www.keycdn.com/blog/web-performance-advice/">https://www.keycdn.com/blog/web-performance-advice/</a>
+<a href="https://developers.google.com/web/fundamentals/performance/critical-rendering-path/render-blocking-css">https://developers.google.com/web/fundamentals/performance/critical-rendering-path/render-blocking-css</a>
+<a href="https://developers.google.com/speed/pagespeed/insights">https://developers.google.com/speed/pagespeed/insights</a>
+<a href="https://www.wpbeginner.com/wp-tutorials/how-to-fix-render-blocking-javascript-and-css-in-wordpress/">https://www.wpbeginner.com/wp-tutorials/how-to-fix-render-blocking-javascript-and-css-in-wordpress/</a>
+<a href="https://medium.com/wwwid/service-worker-tanpa-application-shell-untuk-mempercepat-navigasi-antar-halaman-6b0d01fbe94b">https://medium.com/wwwid/service-worker-tanpa-application-shell-untuk-mempercepat-navigasi-antar-halaman-6b0d01fbe94b</a>
+<a href="https://medium.com/wwwid/yang-web-developer-harus-tau-1-5259c953881f">https://medium.com/wwwid/yang-web-developer-harus-tau-1-5259c953881f</a>
+<a href="https://medium.com/wwwid/tantangan-web-developer-untuk-membuat-aplikasi-web-bisa-digunakan-kurang-dari-5-detik-70bb7431741d">https://medium.com/wwwid/tantangan-web-developer-untuk-membuat-aplikasi-web-bisa-digunakan-kurang-dari-5-detik-70bb7431741d</a></p>
+
+<p><a href="https://www.keycdn.com/blog/perceived-performance/">https://www.keycdn.com/blog/perceived-performance/</a></p>
+:ET

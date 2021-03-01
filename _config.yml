@@ -1,10 +1,9 @@
-
 # SEO settings
 title: "k1m0ch1"
 title2: "Blog" # default: ""
 description: "free thoughtfull from my mind"
 keywords: ""
-url: http://k1m0ch1.github.io/ # site url
+url: https://k1m0ch1.github.io/ # site url
 baseurl: "" # apply repo name if use it under gh-pages branch
 # baseurl: null # apply null if repo name is something like username.github.io
 paginate: 10
@@ -13,7 +12,7 @@ paginate_path: "/page:num/"
 google_analytics: UA-XXXXX-XX
 repo: http://github.com/k1m0ch1/k1m0ch1.github.io
 disqus_shortname: "k1m0ch1"
-twitter_username: "yahya_kimochi"
+twitter_username: "bukanyahya"
 comments: true 
 
 # Build settings
@@ -32,13 +31,13 @@ sass:
 # Author settings
 author:
   name     : "Yahya F. Al Fatih"
-  job      : "R&D Security Engineer"
+  job      : "OSS | Software Engineer | R&D Security Engineer"
   bio      : "nothing really necessary here, just a bunch of /tmp "
   thumb    : /images/author.jpg
   email    : yahya.kimochi@gmail.com
   url      :  
   github   : http://github.com/k1m0ch1
-  twitter  : http://twitter.com/yahya_kimochi
+  twitter  : http://twitter.com/BukanYahya
   facebook : https://www.facebook.com/yahya.kimochi
   linkedin :  
 
