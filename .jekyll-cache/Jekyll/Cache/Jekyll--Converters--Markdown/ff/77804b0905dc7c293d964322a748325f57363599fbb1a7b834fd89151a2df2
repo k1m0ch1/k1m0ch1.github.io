@@ -1,0 +1,242 @@
+I"I<p>Sering kali web developer baru menyadari betapa pentingnya keamanan setelah web atau aplikasinya sudah diretas atau mendapat ancaman dari hacker berupa email. Kesulitan dari pengembangan pun mulai meningkat karena yang harus di tangkis adalah lubang keamanan, dua hal yang berbeda antara lubang yang biasa disebut bug dimana sebuah kesalahan teknikal ataupun bisnis yang menyebabkan munculnya error pada aplikasi yang biasanya muncul dengan ukuran seperti High, Medium, Low dan keamanan yang diukur dari tingkat resiko yang muncul dibagi seperti Confidential (kerahasiaan), Integrity(keutuhan) dan Availability (ketersediaan).</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2000/0*sadHMdVESMNVtNg9.jpg" alt="hacker sexually attracted to your vulnerable app" /><em>hacker sexually attracted to your vulnerable app</em></p>
+
+<p>Penulis ingin membagikan beberapa pro tips untuk para web developer dalam mengamankan web aplikasi kalian supaya kelemahan kelemahan yang biasa hacker manfaatkan bisa terlebih dahulu ditemukan, dan di atasi lebih awal. Terdapat 5 kelemahan umum yang biasa hacker manfaatkan diantaranya :</p>
+
+<h2 id="vulnerable-packages">Vulnerable Packages</h2>
+<blockquote>
+  <p>npm packages over 375000, 70000 publisher, ~14% carry known vulnerabilities — snyk.io</p>
+</blockquote>
+
+<p>Kelemahan paling umum yang biasa hacker manfaatkan, <em>outdated</em>, *unsupported, vulnerable *libraries/packages/dependencies…..</p>
+
+<p>Jangan pernah menganggap remeh vulnerable packages ini karena komunitas hacker sendiri mereka mereka pasti akan merilis jika menemukan kelemahan, dan akan di sebar lewat komunitas.</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2438/1*KcuGEG6-oJOwIMHm42fn8w.png" alt="" /></p>
+
+<p>Bahkan terdapat komunitas hacker sendiri yang menjual exclusive bug seperti bug nya twitter, facebook maupun instagram.</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2018/1*864t9svsp0ULCEg9BLJ1iA.png" alt="" /></p>
+
+<p>yang harus dilakukan web developer untuk mencegah ini adalah :</p>
+
+<p>Gunakan package scanner untuk mengetahui kelemahan dari package, banyak sekali pilihan untuk package scanner salah satunya :</p>
+
+<h3 id="npm-audit"><a href="https://docs.npmjs.com/getting-started/running-a-security-audit">npm audit</a></h3>
+
+<p>Tools ini sangat membantu developer untuk mengetahui lebih awal jika ada library yang vulnerable, cukup dengan perintah biasa <strong>npm install</strong> nanti muncul peringatan kalau library tersebut terdapat kelemahan dan menyarankan menjalankan <strong>npm audit **(jangan lupa ini menggunakan npm latest bisa langsung update menggunakan **npm install npm@latest -g</strong> )</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*hBDqSa0h7JpjceDqUKjyWQ.png" alt="" /></p>
+
+<p>setelah menjalankan npm install, pasti disaraankan untuk menjalankan npm audit, nanti hasilnya seperti berikut</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2288/0*ZEJvNnl4hHdscJSG.png" alt="" /></p>
+
+<p>untuk fixing bisa update aja versi library nya atau menggunakan perintah <strong>npm audit fix</strong> buat auto fixing yang vulnerable, mungkin ada beberapa library yang ga bisa di fixing biasnaya dikarenakan library nya sudah tidak di kembangkan lagi, atau harus update manual library nya.</p>
+
+<h3 id="snykio"><a href="https://snyk.io/">snyk.io</a></h3>
+
+<p>Ini bukan tools melainkan Website yang menyediakan jasa untuk melakukan scanning library, menggunakan website ini dia cukup general karena dia bisa scanning untuk multi language. Cukup dengan menambahkan project yang ada di berbagai repository (github, gitlab, dll) nanti dia bakal scanning library sekarang yang dipakai. Kelebihannya untuk menggunakan snyk.io ini kita bisa melakukan daily scanning, bisa liat detail permasalahan dan rekomendasinya terutama gratis, penulis sangat menyarankan menggunakan ini 👍</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*jvUP95hcIgVFE2VeHbAO4Q.png" alt="" /></p>
+
+<h3 id="github-security-alert"><a href="https://blog.github.com/2017-11-16-introducing-security-alerts-on-github/">github security alert</a></h3>
+
+<p>Buat developer github mungkin ini sudah tidak asing lagi, untuk enable fitur ini bisa cek pada tab Insight, lalu bagian menu dependency graph ada fitur untuk memulai cek dependencies security. Biasanya setiap minggu jika ditemukan vulnerability pada dependencies langsung di peringatkan lewat email.</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*JQaUKWhVSwTX6_YOaT2cpg.png" alt="Github memberikan peringatan tentang dependencies yang lema" /><em>Github memberikan peringatan tentang dependencies yang lema</em></p>
+
+<p>Banyak sekali tools tools pendukung untuk cek dependencies dari lubang keamanan, contoh lainnya untuk composer libraries bisa di lakukan menggunakan tools <a href="https://security.sensiolabs.org/check">sensiolabs</a> (<a href="https://security.sensiolabs.org/check">web </a>/ <a href="https://github.com/sensiolabs/security-checker">github </a>).</p>
+
+<h2 id="injeksi">Injeksi</h2>
+
+<p>OWASP Top 10 Vulnerability menyebutkan injeksi adalah serangan yang paling sering hacker manfaatkan, dalam arti lain serangan yang paling di favoritkan oleh hacker, disisi mudah di gunakan, tipe serangannya juga sangat banyak bahkan <a href="https://www.netsparker.com/blog/web-security/sql-injection-cheat-sheet/">varian </a>untuk setiap masing masing sql server (mysql, postgres, oracle). Penulis akan berbagi tips untuk handle jenis serangan Injection yang umum, salah satunya :</p>
+
+<h3 id="sql-injection">SQL Injection</h3>
+
+<p>Arti sederhananya adalah query dari data yang terstruktur dan dimanfaatkan hacker untuk mendapatkan informasi lebih, contohnya seperti pada query berikut</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>select judul, highlight, deskripsi, tag from tbl_artikel where id = 1;
+</code></pre></div></div>
+
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*PQlBIz9RzK0JBYKYUoD6Sw.png" alt="hasilnya" /><em>hasilnya</em></p>
+
+<p>sederhana ko, anggap saja 1 adalah variabel input, jadi kalau angka tersebut di ganti ganti artinya akan menampilkan data berita dengan spesifik id, simple kan. Nah jika “ 1 “ adalah inputan dari user, artinya user bisa menambahkan query kan, anggap lah jika user tersebut memasukkan query berikut setelah inputan.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>**union select 1,concat(table_name),3,4 from information_schema.tables where table_schema
+="CRACKING";**
+</code></pre></div></div>
+
+<p>jika di gabungkan menjadi begini</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>select 
+ judul, highlight, deskripsi, tag 
+from tbl_artikel 
+where id = 1 **union select 1,concat(table_name),3,4 from information_schema.tables where table_schema
+="CRACKING";**
+</code></pre></div></div>
+
+<p>maka hasilnya akan memberitahukan semua list tabel yang tersedia pada database “CRACKING” (contoh database yang dicoba)</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*7wGv8Eq2DT7Nk2jfUwL0BQ.png" alt="hasilnya" /><em>hasilnya</em></p>
+
+<p>artinya memungkinkan hacker melakukan ekstrak data lainnya pada query tersebut contoh lainnya pada query ini untuk menampilkan username dan password pada tabel</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>select judul, highlight, deskripsi, tag from tbl_artikel where id = 1 union select 1,concat(username,0x3a,
+password),3,4 from tbl_user;
+</code></pre></div></div>
+
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*BULmzjJzS-yrvASQxTBCRw.png" alt="" /></p>
+
+<p>Mungkin ribet ya, simple nya gini, kalo nyatanya bisa seperti ini.</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*KimkYKKuir6u4G1sFWQf_Q.png" alt="" /></p>
+
+<p>Serangan SQL Injection ini paling umum, paling banyak varian nya, paling random banget muncul nya, bahkan banyak tools tools hacking yang sesimple masukkan URL dan langsung ekstrak database salah satunya Havij (one click hack, paling sering dipake noob hacker buat merasa lebih powerfull), BFSQL, paling the best itu <a href="http://sqlmap.org/">SQLMap</a>. Buat kawan kawan yang penasaran dan pengen coba sendiri, saya saranin menggunakan SQLMap</p>
+
+<p>#<em>Attention disini penulis share tentang SQLMap khusus untuk testing aplikasi kalian sendiri buat kepentingan keamanan, kalo yang lain tanggung jawab masing masing</em></p>
+
+<h3 id="test-kelemahan-aplikasi-menggunakan-sql-map">Test kelemahan aplikasi menggunakan SQL Map</h3>
+
+<p>Bahan :</p>
+
+<blockquote>
+  <p>python 2.6.x atau 2.7.x</p>
+</blockquote>
+
+<blockquote>
+  <p>install library python <a href="http://docs.python-requests.org/en/master/">requests</a></p>
+</blockquote>
+
+<blockquote>
+  <p>clone dari project <a href="https://github.com/sqlmapproject/sqlmap">https://github.com/sqlmapproject/sqlmap</a></p>
+</blockquote>
+
+<p>Kalau udah siap semua coba jalankan perintah <strong>python sqlmap.py</strong></p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*nVJDn2mwzrH29ifFmwqnZA.png" alt="" /></p>
+
+<p>lalu ada beberapa cara untuk mendefinisikan fungsi/ URL yang lemah :</p>
+
+<ol>
+  <li>
+    <p>berupa inputan dari user</p>
+  </li>
+  <li>
+    <p>untuk method GET jika menggunakan petik satu ( ‘ ) akan muncul error mysql seperti **localhost/?parent_id=91&amp;v=portal&amp;page=&amp;id=93’` **artinya fungsi ini ada potensi lemah</p>
+  </li>
+</ol>
+
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*O7zH7gSSzmdayn4UBs08XA.png" alt="contoh jika menggunakan petik satu" /><em>contoh jika menggunakan petik satu</em></p>
+
+<ol>
+  <li>
+    <p>untuk method POST masukkan variabel yang tidak sesuai dengan tipe data contoh memasukkan huruf pada nomor telepon</p>
+  </li>
+  <li>
+    <p>Jika muncul Error SQL Syntax artinya fungsi/ URL ini berpotensi lemah, save URL nya.</p>
+  </li>
+</ol>
+
+<p>Jika sudah mempunyai URL lemah tersebut, selanjutnya adalah memasukkan URL lemah tersebut ke sqlmap tanpa petik dengan perintah</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python sqlmap.py -u "**localhost/?parent_id=91&amp;v=portal&amp;page=&amp;id=93"**
+</code></pre></div></div>
+
+<p>Selanjutnya tools ini akan melakukan pengecekan tipe DBMS dan melakukan serangan serangan dari semua jenis sql injection, SQLMap akan melakukan beberapa pertanyaan simple dan selanjutnya jika berhasil maka akan muncul seperti berikut</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*Sg2M2qomvv7rUG6kM51Lrg.png" alt="Hasil jika berhasil terdapat informasi “injectable”" /><em>Hasil jika berhasil terdapat informasi “injectable”</em></p>
+
+<p>Kotak merah artinya fungsi/ URL tersebut jelas jelas lemah, dan kotak hijau adalah query yang digunakan untuk menemukan kelemahan. Simple ko!! silahkan dicoba,</p>
+
+<h3 id="pencegahan-sql-injection">Pencegahan SQL Injection</h3>
+
+<p>Paling efektif di antara pencegahan SQL Injection adalah menggunakan <strong>prepared statement</strong> untuk di setiap query yang akan di execute, karena setiap prepared statement query tidak akan langsung di eksekusi oleh database server dipisah antara variabel yang di input dan query yang akan di eksekute, menggunakan prepared statement akan mengecilkan kemungkinan hacker melakukan serangan sql injection.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$stmt = $dbConnection-&gt;prepare('SELECT * FROM employees WHERE name = ?');
+$stmt-&gt;bind_param('s', $name); // 's' specifies the variable type =&gt; 'string'
+
+$stmt-&gt;execute();
+
+$result = $stmt-&gt;get_result();
+while ($row = $result-&gt;fetch_assoc()) {
+    // do something with $row
+}
+</code></pre></div></div>
+
+<p>Untungnya banyak framework developement semacam laravel, express dan sebagainya yang sudah menangkal basic SQL Injection, tapi masih banyak cara untuk pencegahan sql injection, ini hanyalah salah satu dari pencegahan, karena serangan belum tentu itu itu saja.</p>
+
+<h2 id="tidak-menggunakan-https">Tidak menggunakan HTTPS</h2>
+
+<p>Sudah menjadi hal umum update terbesar chrome di tahun ini adalah menandakan website yang <a href="https://www.theregister.co.uk/2018/07/03/google_chrome_http/">tidak menggunakan HTTPS akan di anggap tidak aman</a>, hal ini menjelaskan bahwa HTTP bukanlah protokol yang aman lagi untuk melakukan transport data karena dengan menggunakan http data yang dikirimkan dapat di ekstrak dan di manipulasi oleh orang lain dalam satu jaringan.</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*Hf0cohVzMqNe6HVyXV94vA.png" alt="HTTP ibarat website telanjang, dalam satu jaringan masih bisa di ambil datanya" /><em>HTTP ibarat website telanjang, dalam satu jaringan masih bisa di ambil datanya</em></p>
+
+<p>HTTPS menyediakan user melakukan transportasi data melewati jalur yang aman, secara teknikal data yang dikirimkan ke HTTPS akan di encrypt supaya data tidak bisa di baca secara mentah mentah. Biarpun HTTPS itu banyak yang mahal, jangan minder bahkan masih banyak website pemerintah yang tidak menggunakan HTTPS, wajar website pemerintah lebih sering dijadikan bahan eksperimen hacker. Tidak telat buat kalian web developer untuk segera pasang HTTPS karena sudah banyak HTTPS gratis seperti letsencrypt ataupun cloudflare.</p>
+
+<h2 id="password">Password</h2>
+
+<p>Paling sering hacker memanfaatkan password umum untuk meretas akun orang lain, karena password adalah hal sederhana yang pada dasarnya manusia sulit untuk diingat,</p>
+
+<p>Kadang juga web developer lupa dengan menyimpan password sensitif ke dalam aplikasi, yang seharusnya tidak boleh contoh seperti di github jika mencari commit dengan keyword “hapus password” akan muncul banyak commit berupa credential database ataupun server</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*bg_qmqChjnZtWI8Ym9ayDw.png" alt="silly commit" /><em>silly commit</em></p>
+<blockquote>
+  <h1 id="cara-paling-aman-menyimpan-secret-key-ke-dalam-aplikasi-adalah-dengan-tidak-menyimpan-secret-key-ke-dalam-aplikasi">Cara paling aman menyimpan secret key ke dalam aplikasi adalah dengan tidak menyimpan secret key ke dalam aplikasi</h1>
+</blockquote>
+
+<p>Sebenarnya mudah, cukup jangan menyimpan secret key ke dalam aplikasi, bisa dipisahkan menggunakan variable enviroment atau di encrypt supaya membuat bingung orang usil.</p>
+
+<h2 id="file-upload">File Upload</h2>
+
+<p>Serangan terakhir yang biasanya hacker paling cari kalau sudah menemukan akses dari aplikasinya adalah file upload supaya hacker bisa menanam backdoor dan akses aplikasi/ server secara mudah. Nah sebelumnya kita cari tau dulu cara hacker hack file upload ini</p>
+
+<p><strong>Manipulasi File Signature File Type</strong></p>
+
+<p>Sudah umum buat di bagian file upload untuk mengkhususkan file yang akan diupload secara spesifik, khusus dokumen (pdf, doc,dll), khusus gambar (png, jpeg, svg) biasanya hacker akan melakukan manipulasi tipe data juga pada bagian header atau<a href="https://en.wikipedia.org/wiki/JPEG_File_Interchange_Format"> file format structure</a> . Setiap file terdapat format yang dibaca secara binary dan file format ini</p>
+
+<p>Contohnya salah satunya file JPG dia pada header biasanya terdapat header ÿØÿà..JFIF.. dengan alamat FF D8 FF E0 00 10 4A 46 49 46 00 01</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*cL2avBrZA4OPhy17NRx7_w.png" alt="" /></p>
+
+<p>Untuk png dengan binary .PNG… dengan alamat89 50 4E 47 0D 1A 0Aseperti berikut</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*Y-T5JEcY7W6Op4g61ia0WQ.png" alt="" /></p>
+
+<p>Dengan cukup menambahkan header ke file php tersebut hacker secara mudah memanipulasi dan file tersebut akan terdeteksi sebagai JPG/ PNG</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*QLqn9p6LIkU4xjs-OPNfbw.png" alt="" /></p>
+
+<p>Oke dalam kasus ini biasanya hacker menggunakan File upload jenis Whitelist, artinya biasanya developer PHP menggunakan fungsi get_mime_type($filename) dengan mime yang dibutuhkan image/jpeg dengan fungsi tersebut file yang di manipulasi akan tetap muncul image/jpeg</p>
+
+<h3 id="manipulasi-exif-key">Manipulasi EXIF key</h3>
+
+<p>Pada file gambar terdapat EXIF ( Exchangeable Image File Format ) untuk mendefinisikan file format pada gambar biasanya berupa lokasi file diambil, resolusi file dan sebagainya. Pada PHP disaat upload file dan filenya dibaca akan dibaca pada bagian EXIF nya juga, dan ada cara hacker menyisipkan php execution pada EXIF nya seperti berikut</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>exiftool -Comment='&lt;?php echo "&lt;pre&gt;"; system($_GET['cmd']); ?&gt;' lo.jpg
+</code></pre></div></div>
+
+<p>Dengan EXIF ini code php tersebut akan dieksekusi</p>
+
+<p><strong>Solusi File Upload</strong></p>
+
+<p>Semua tujuan dari file upload itu semua adalah shell execution atau dalam artian lain melakukan eksekusi perintah pada operating sistem tersebut, sebenernya sesederhana disable eksekusi shell pada PHP atau engine web lainnya pada php bisa menggunakan <a href="https://www.cyberciti.biz/faq/linux-unix-apache-lighttpd-phpini-disable-functions/">https://www.cyberciti.biz/faq/linux-unix-apache-lighttpd-phpini-disable-functions/</a></p>
+<blockquote>
+  <h1 id="saya-merasa-kurang-dan-masih-kena-hacking-">Saya merasa kurang dan masih kena hacking :(</h1>
+</blockquote>
+
+<p>Banyak alternatif nya di internet, kalo saran saya sendiri bisa menggunakan web security checklist untuk developer, bisa cek disini
+<a href="https://medium.com/@yahya.kimochi/web-developer-security-checklist-920ac4421589"><strong>Web developer security checklist</strong>
+<em>Dari data pada website zone-h.org dijelaskan hampir satu hari hacker mampu melakukan deface sebanyak 5 sampai 20…</em>medium.com</a></p>
+
+<h2 id="referensi">Referensi</h2>
+
+<p><a href="https://www.netsparker.com/blog/web-security/sql-injection-cheat-sheet/">https://www.netsparker.com/blog/web-security/sql-injection-cheat-sheet/</a>
+<a href="https://en.wikipedia.org/wiki/List_of_file_signatures"><strong>List of file signatures - Wikipedia</strong>
+<em>Many file formats are not intended to be read as text. If such a file is accidentally viewed as a text file, its…</em>en.wikipedia.org</a></p>
+
+<p><a href="http://exif.regex.info/exif.cgi">http://exif.regex.info/exif.cgi</a>
+<a href="https://developers.google.com/web/fundamentals/security/encrypt-in-transit/why-https"><strong>Why HTTPS Matters | Web Fundamentals | Google Developers</strong>
+<em>You should always protect all of your websites with HTTPS, even if they don’t handle sensitive communications. HTTPS…</em>developers.google.com</a></p>
+:ET

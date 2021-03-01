@@ -1,0 +1,89 @@
+I"
+<p>Mungkin artikel ini dimulai dengan sebuah kasus secara real yang saya dapatkan pada sebuah network yang saya assessment secara legal. Analisa pada bagian ini cukup sederhana menggunakan tools etherape, wireshark dan analisa paket data.</p>
+
+<p>Pada awalnya terdapat grafik network menggunakan etherape secara tidak normal seperti berikut (ini hanya rekayasa, kebetulan nda sempet screenshot) :</p>
+
+<blockquote>
+  <p><img src="http://k1m0ch1.github.io/images/malware-analyze-3.png" alt="Ether ape network analyze" /></p>
+</blockquote>
+
+<p>network dengan subnet 28 bit ini terdapat aktifitas aneh didalam jaringan, seperti ada transfer data secara besar besaran.</p>
+
+<p>Selanjutnya saya analisa dengan menggunakan wireshark dan jaringan di tapping menggunakan ettercap supaya semua paket data melewati laptop saya dulu. setelah di analisa lebih dalam ternyata jaringan ini menggunakan VPN sebagai komunikasi dengan jaringan pusat, bahkan jaringan pusat dapat di akses langsung secara direct oleh setiap pc di dalam jaringan.</p>
+
+<p>ternyata setelah saya analisa, aktifitas yang besar itu ternyata berasal dari aplikasi yang digunakan oleh jaringan private untuk mengirimkan data ke server pusat, tetapi terdapat paket data yang aneh seperti berikut:</p>
+
+<blockquote>
+  <p><img src="http://k1m0ch1.github.io/images/malware-analyze-1.png" alt="Paket data aneh" /></p>
+</blockquote>
+
+<p>dan saya coba buat view detail dari paket data tersebut</p>
+
+<blockquote>
+  <p><img src="http://k1m0ch1.github.io/images/malware-analyze-2.png" alt="Detail paket data" /></p>
+</blockquote>
+
+<p>terlihat pada data pada bagian saya sort dan dua item ke bawah terdapat pengiriman data ke</p>
+
+<blockquote>
+  <p>http://www.thescreensnapshot.com/cgi-bin-py/screensnapshot_uu.cgi</p>
+</blockquote>
+
+<p>dan</p>
+
+<blockquote>
+  <p>http://differentia.ru/diff.php
+http://disorderstatus.ru/order.php</p>
+</blockquote>
+
+<p>ok, pertama yang saya lakukan adalah mencari tau informasi tentang malware ini apakah tersedia di internet atau tidak, pertama saya menggunakan keyword di google</p>
+
+<blockquote>
+  <p>http://www.thescreensnapshot.com/cgi-bin-py/screensnapshot_uu.cgi</p>
+</blockquote>
+
+<p>dan terdapat result yang cukup menarik</p>
+
+<blockquote>
+  <p><img src="http://k1m0ch1.github.io/images/malware-analyze-4.png" alt="Result Google" /></p>
+</blockquote>
+
+<p>saya beri kesimpulan dari hasil search di google dengan 5 top search, hasilnya adalah aktifitas ini ternyata adalah aktifitas adware yang melakukan screenshoot dan dikirimkan ke server rusia ( sebenernya saya belum validasi apakah ada yang sedang menggunakan aktifitas screen shoot dengan tools atau tidak, kalau tidak ada kemungkinan tools ini sedang melakukan aktifitas spy pada infected pc) dan beberapa antivirus menganggap mereka adalah <em>Malware.Chi</em></p>
+
+<p>next adalah</p>
+
+<blockquote>
+  <p>http://differentia.ru/diff.php
+http://disorderstatus.ru/order.php</p>
+</blockquote>
+
+<p>saya menggunakan keyword diff.php dan ternyata ada autocomplete <em>diff.php virus</em></p>
+
+<p>dan resultnya cukup meyakinkan bahwa ini adalah aktifitas virus</p>
+
+<blockquote>
+  <p><img src="http://k1m0ch1.github.io/images/malware-analyze-5.png" alt="Result Google" /></p>
+</blockquote>
+
+<p>yap kesimpulan dari hasil search ini cukup jelas ternyata dia adalah adware yang menginfeksi pada pc dan melakukan aktifitas untuk menampilkan iklan secara paksa.</p>
+
+<p>dan bagaimana cara buat fix nya ? berikut :</p>
+
+<blockquote>
+  <p>https://malwaretips.com/threads/differentia-ru-diff-php-and-disorderstatus-ru-malware.50205/</p>
+</blockquote>
+
+<h2 id="kesimpulan-dari-part-1">Kesimpulan dari part 1</h2>
+
+<ol>
+  <li>Jika sudah merasa behavior network merasa aneh mulai analisa jaringan</li>
+  <li>analisa lebih dalam dan dapatkan sample data</li>
+  <li>untuk basic dapat menggunakan pencarian untuk mencari informasi tentang sample data</li>
+  <li>cek informasi tersebut apakah valid atau tidak</li>
+  <li>lakukan proof of concept
+…</li>
+  <li>Profit</li>
+</ol>
+
+<p>Mungkin next saya lakukan riset lebih dalam tentang network malware ini dan akan menulis lagi :D</p>
+:ET

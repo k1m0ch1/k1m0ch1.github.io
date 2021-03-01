@@ -1,0 +1,107 @@
+I"L$<p>Modern ini web security belum menjadi salah satu kebutuhan penting untuk developer pada pengembangan aplikasi web, karena pada umumnya developer akan melakukan pengembangan keamanan setelah masuk ke dalam masa production ataupun setelah mendapatkan hasil testing. Hal ini adalah hal wajar karena banyak pengembangan web menggunakan model agile. Dalam pembahasan ini penulis akan menjelaskan tentang pemikiran awam tentang security dan best practice dalam melakukan pengamanan web.</p>
+
+<p>Buat para orang awam kalo berbicara tentang security pada umumnya terpintas pikiran “<strong>aplikasi atau alat untuk mengamankan sistem</strong>” atau biasa disebut “firewall”, dan biasanya kita sebagai orang awam cukup dengan memasang firewall **terbaru dan terupdate **saja sudah merasa cukup aman. Pada dasarnya pemikiran ini wajar akan tetapi dengan pemikiran ini pula banyak muncul pertanyaan yang meragukan, salah satunya “gimana jadinya kalo firewall-nya kena hack?”, “apakah firewall saja cukup?”, “apakah memasang firewall di dalam firewall lebih aman?”.</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2000/0*r57Vc4yToIajbWCW.gif" alt="" /></p>
+
+<p>Hal yang sama terjadi dengan dasar pemikiran kita untuk mengamankan sistem seperti contoh kasus berikut:</p>
+
+<p>Anggaplah kita mempunyai web aplikasi yang cukup menarik perhatian banyak orang, jika load website semakin besar artinya kemungkinan 1 dari 10 customer adalah orang jahil. Artinya disaat sistem aplikasi ini berhasil di ambil alih oleh hacker kita pasti terpikir untuk melakukan pengamanan dengan memasang node security pada sistem kita supaya tidak terulang lagi.</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*EYgb4XR3w5KipQls0C1M6Q.png" alt="1 dari 10 user adalah hacker" /><em>1 dari 10 user adalah hacker</em></p>
+
+<p>Setelah terpasang security node ke dalam sistem dengan berbagai cara untuk mengusir hacker supaya tidak lagi main-main dengan sistem ini, jangan lupakan satu hal, dengan memasang security node ke dalam sistem kita ada kemungkinan load web akan lebih berat dari biasanya, karena pada dasarnya setiap data yang masuk dan keluar akan divalidasi oleh <strong>“firewall”</strong>.</p>
+<blockquote>
+  <h1 id="bagaimana-jika-hacker-masih-tembus-setelah-dia-pasang-firewall-ini-ke-dalam-sistemnya-">Bagaimana jika hacker masih tembus setelah dia pasang firewall ini ke dalam sistemnya ?</h1>
+</blockquote>
+
+<p>Jika hal tersebut terjadi ada beberapa hal yang perlu dilakukan:</p>
+
+<ol>
+  <li>
+    <p>**Jangan panik, lakukan perlindungan pertama untuk top priority **bayangkan jika pada saat liburan ditengah pulau, sinyal internet 2G dan dapet sms “mas database production terhapus”, dunia seakan berhenti berjalan dan otomatis heart rate naik menjadi 150RPM, bingung mau ngapain, jangan panik, lakukan perlindungan pertama untuk top priority seperti perlindungan data customer ataupun melakukan backup data. (penjelasan lebih lengkap pada best practice)</p>
+  </li>
+  <li>
+    <p><strong>Jangan memasang firewall di dalam firewall, lakukan hal yang terbaik untuk mencari tahu inti masalah</strong>, sangat tidak efektif untuk memasang inception firewall karena akan memberatkan load user, anggaplah tidak akan ada masalah dengan user, bagaimana jadinya kalo hacker ga menyerah dan malah bawa teman temannya buat menyerang? isi websitenya lama lama cuman hacker semua.</p>
+  </li>
+</ol>
+
+<p><img src="https://cdn-images-1.medium.com/max/2218/1*0e0DH9xVB1b8Eub5jt9A7A.png" alt="Terlalu banyak node security yang membuat tidak nyaman customer malah bisa jadi saran experimen hacker" /><em>Terlalu banyak node security yang membuat tidak nyaman customer malah bisa jadi saran experimen hacker</em></p>
+
+<p><strong>*3. Seek to be preventative not defensive</strong>, *pastikan semua orang yang terlibat dalam pengembangan atau operator sistem tidak menjalankan aplikasi mencurigakan ataupun berkontribusi terhadap serangan hacking. Kadang human error bisa merujuk pada serangan hacking yang lebih besar, biarpun kita mempunyai top class profesional security terpasang pada sistem kita, kita juga harus memastikan semua orang yg terlibat pada pengembangan atau operator sistem tidak membawa backdoor ke dalam sistem kita.</p>
+
+<p>Maksud dari cerita di atas adalah untuk melakukan pengamanan terhadap sistem tersebut tidak cukup dengan melakukan <strong>patch</strong>, <strong>upgrade</strong> atau **install security node **saja, ada beberapa praktisi yang perlu dilakukan seperti 4 poin berikut :</p>
+
+<h2 id="1-continuous-monitoring">1. Continuous Monitoring</h2>
+
+<p>Kemampuan backdoor yang sangat efektif adalah menyembunyikan diri dari website owner. Terkadang terdapat <em>visual sign</em> yang dapat dilihat contoh seperti berikut :</p>
+
+<ul>
+  <li>
+    <p>Informasi akun berubah tiba tiba</p>
+  </li>
+  <li>
+    <p>files website berubah atau terhapus tanpa sepengetahuan</p>
+  </li>
+  <li>
+    <p>website mudah freeze atau crash</p>
+  </li>
+  <li>
+    <p>traffic tiba tiba drop atau naik</p>
+  </li>
+  <li>
+    <p>executable file pada folder upload atau tempat aneh</p>
+  </li>
+  <li>
+    <p>terdapat proses remote yang berjalan pada aplikasi</p>
+  </li>
+  <li>
+    <p>Terdapat akun baru yang mencurigakan aktifitasnya</p>
+  </li>
+  <li>
+    <p>Terdapat pesan dari hacker</p>
+  </li>
+</ul>
+
+<p>Cukup dengan mengenal salah satu dari visual sign ini bisa mengindikasi kalau website kena hack atau tidak, jika dirasa sudah kena hack bisa lanjut ke bagian selanjutnya <strong>Auditing</strong></p>
+
+<h2 id="2-auditing">2. Auditing</h2>
+
+<p>Selain dengan melakukan monitoring dengan <em>visual sign</em> untuk mengetahui jika terdapat celah keamanan, ada cara yang lebih mudah menggunakan auditing atau istilah lainnya scanning, scanning dapat di kerjakan secara <strong>otomatis **ataupun **manual</strong></p>
+
+<h3 id="otomatis">Otomatis</h3>
+
+<p>Beberapa scanner mampu mendeteksi lubang keamanan yang susah di deteksi oleh visual sign, ada beberapa banyak tools yang bisa di pilah dan terbilang mudah untuk penggunaannya dapat di cek disini <a href="https://github.com/qazbnm456/awesome-web-security#detecting">https://github.com/qazbnm456/awesome-web-security#detecting</a></p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2400/0*-HwHHJBi6fSwKUu-.png" alt="Automated Scanner menggunakan WPSCAN" /><em>Automated Scanner menggunakan WPSCAN</em></p>
+
+<p>Bahkan Github pun menyediakan fitur keamanan khusus untuk scanning libraries, biasanya github akan mendeteksi file yang berisi listing libraries seperti <strong>composer.json</strong> atau <strong>package.json</strong>, atau dapat menggunakan snyk.io salah satu opensource security platform yang menyediakan jasa vulnerability scanning untuk repository.</p>
+
+<h3 id="manual">Manual</h3>
+
+<p>Untuk metode manual auditing tidak jauh beda dengan Continuous Monitoring, melakukan manual analisis dengan melihat tanda tanda visual tentu dapat di bantu dengan bantuan Tools (dapat cek di <a href="https://github.com/sbilly/awesome-security#monitoring--logging">https://github.com/sbilly/awesome-security#monitoring–logging</a> )atau dapat juga melakukan pengencekan dengan checklist yang tersedia.</p>
+
+<h3 id="checklist">Checklist</h3>
+
+<p>Sekitar 3 bulan yang lalu sampai sekarang saya masih mengembangkan checklist security best practice yang mudah di pahami oleh web developer, checklist ini bisa jadi patokan kemanan standar.
+<a href="https://medium.com/@yahya.kimochi/web-developer-security-checklist-920ac4421589"><strong>Web developer security checklist</strong>
+<em>Dari data pada website zone-h.org dijelaskan hampir satu hari hacker mampu melakukan deface sebanyak 5 sampai 20…</em>medium.com</a></p>
+
+<h2 id="3-fixing">3. Fixing</h2>
+
+<p>Kalau sudah menemukan celah keamanan yang terdapat pada aplikasi, tentunya melakukan fixing, fixing ini belum cukup dengan update dependencies, kadang jika tidak tersedia upgrade nantinya , contohlah jika menemukan celah keamanan dengan code base dan tidak cukup dengan upgrade saja kita butuh melakukan varian, dari security checklist yang saya buat juga sudah termasuk beberapa cara melakukan fixing yang seharusnya.</p>
+
+<h2 id="4-repeat"><strong>4. Repeat</strong></h2>
+
+<p>Ulangi langkah awal jika ragu masih terdapat lubang keamanan, best practice ini cocok digunakan oleh web developer yang garap ilmu masih menggunakan search google dan minim pengetahuan security.</p>
+
+<p>Kesimpulannya kita sebagai web developer perlu menghilangkan dasar pemikiran tentang pengamanan dimana menggunakan firewall adalah standar cukup, ibarat aplikasi kena hack itu bagaikan anak sendiri yang lagi di bully sama orang lain, yang perlu di jaga dan di rawat sama kita sendiri yang mengembangkan dari awal.</p>
+
+<p>Referensi
+<a href="https://github.com/enaqx/awesome-pentest"><strong>enaqx/awesome-pentest</strong>
+<em>A collection of awesome penetration testing resources, tools and other shiny things - enaqx/awesome-pentest</em>github.com</a></p>
+
+<p><a href="https://www.exploit-db.com/docs/persian/44898-database-security-threats-and-injection-technique.pdf">https://www.exploit-db.com/docs/persian/44898-database-security-threats-and-injection-technique.pdf</a></p>
+
+<iframe src="https://medium.com/media/366e98810ba538efb92e5a87890b0d8d" frameborder="0"></iframe>
+:ET

