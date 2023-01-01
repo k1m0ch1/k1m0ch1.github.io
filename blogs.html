@@ -9,16 +9,16 @@ title: Blog
     <div class="container" >
         {% for blog in site.categories.blogs %}
           {% unless blog.next %}
-            <h2 class="category-title">{{ blog.date | date: '%B %Y' }}</h2>
+            <h2 class="category-title">{{ blog.date | date: '%Y' }}</h2>
           {% else %}
-            {% capture year %}{{ blog.date | date: '%B %Y' }}{% endcapture %}
-            {% capture nyear %}{{ blog.next.date | date: '%B %Y' }}{% endcapture %}
+            {% capture year %}{{ blog.date | date: '%Y' }}{% endcapture %}
+            {% capture nyear %}{{ blog.next.date | date: '%Y' }}{% endcapture %}
             {% if year != nyear %}
-              <h2 class="category-title">{{ blog.date | date: '%B %Y' }}</h2>
+              <h2 class="category-title">{{ blog.date | date: '%Y' }}</h2>
             {% endif %}
           {% endunless %}
           <article class="post-item">
-            <span class="post-meta date-label">{{ blog.date | date: "%b %d" }}</span>
+            <span class="post-meta date-label">{{ blog.date | date: "%d %b %Y" }}</span>
             <div class="article-title"><a class="post-link" href="{{ blog.url | prepend: site.baseurl }}">{{ blog.title }}</a></div>
           </article>
         {% endfor %}

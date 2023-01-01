@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Shau Cloud - The Art exhibition with rasp pi"
-date:   2017-07-21 16:01:00 +0700
+date: 2017-07-21 16:01:00 +0700
 categories: projects project
 comments: false
 ---
