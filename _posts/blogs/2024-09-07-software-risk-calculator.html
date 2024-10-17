@@ -1,0 +1,268 @@
+---
+layout: post
+title: "Software Risk Calculator"
+date: 2024-09-07 12:55:00 +0700
+categories: risk, software, 
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risk Scoring Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+        }
+        h2 {
+            text-align: center;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+        }
+        select, input {
+            margin-top: 10px;
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .result {
+            font-size: 1.5em;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .risk-label {
+            font-size: 1.2em;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 10px;
+        }
+        .formula {
+            margin-top: 20px;
+            font-size: 1em;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Risk Scoring Calculator</h2>
+
+<div class="section">
+    <label>Vulnerability Score</label>
+    <div>
+        <label for="confidentiality">Confidentiality:</label>
+        <select id="confidentiality" onchange="updateFormula()">
+            <option value="L">Low (1) - None or slightly corrupt data</option>
+            <option value="M">Medium (3) - Minor Corupt Data</option>
+            <option value="H">High (5) - Major Corrupt Data</option>
+        </select>
+    </div>
+    <div>
+        <label for="integrity">Integrity:</label>
+        <select id="integrity" onchange="updateFormula()">
+            <option value="L">Low (1) - None or slightly corrupt data</option>
+            <option value="M">Medium (3) - Minor Corupt Data</option>
+            <option value="H">High (5) - Major Corrupt Data</option>
+        </select>
+    </div>
+    <div>
+        <label for="availability">Availability:</label>
+        <select id="availability" onchange="updateFormula()">
+            <option value="L">Low (1) - None or Minimal secondary services interrupted</option>
+            <option value="M">Medium (3) - Minor service interrupted</option>
+            <option value="H">High (5) - Extensive primary services interrupted</option>
+        </select>
+    </div>
+</div>
+
+<div class="section">
+    <label>Impact Score</label>
+    <div>
+        <label for="businessDependency">Business Dependency:</label>
+        <select id="businessDependency" onchange="updateFormula()">
+            <option value="1">Non-essential service, little to no impact on operations (1)</option>
+            <option value="2">Minor service, some effect but not critical (2)</option>
+            <option value="3">Important but not critical to day-to-day operations (3)</option>
+            <option value="4">Core business function, significant disruption (4)</option>
+            <option value="5">Mission-critical service, halts business operations (5)</option>
+        </select>
+    </div>
+    <div>
+        <label for="technicalDependency">Technical Dependency:</label>
+        <select id="technicalDependency" onchange="updateFormula()">
+            <option value="1">Good architecture, no issues (1)</option>
+            <option value="2">Minor technical issues (2)</option>
+            <option value="3">Frequent errors, some issues (3)</option>
+            <option value="4">Single point of failure, poor architecture (4)</option>
+            <option value="5">Highly unreliable, frequent breakdowns (5)</option>
+        </select>
+    </div>
+</div>
+
+<div class="section">
+    <label for="frequencyScore">Frequency Score</label>
+    <select id="frequencyScore" onchange="updateFormula()">
+        <option value="1">Once a year (1)</option>
+        <option value="2">Twice a year (2)</option>
+        <option value="3">3-5 times a year (3)</option>
+        <option value="4">Monthly, or more than 5 times a year (4)</option>
+        <option value="5">Constant or frequent (5)</option>
+    </select>
+</div>
+
+<div class="section">
+    <label for="recoverabilityScore">Recoverability Score</label>
+    <select id="recoverabilityScore" onchange="updateFormula()">
+        <option value="1">Instant recovery, automated rollback, minimal manual intervention (1)</option>
+        <option value="2">Quick recovery within an hour (2)</option>
+        <option value="3">Recovery within a day with some manual intervention (3)</option>
+        <option value="4">Requires multiple teams and takes more than a day (4)</option>
+        <option value="5">Long, complex recovery process, requiring days or weeks, potentially involving 3rd-party vendors or rearchitecting (5)</option>
+    </select>
+</div>
+
+<div class="result" id="riskResult">Risk Score: -</div>
+<div class="risk-label" id="riskLabel"></div>
+
+<div class="formula">
+    <label for="formulaTextbox">Formula:</label>
+    <input type="text" id="formulaTextbox" oninput="applyFormula()">
+</div>
+
+<script>
+    // Function to generate the formula and update the textbox
+    function updateFormula() {
+        const confidentiality = document.getElementById('confidentiality').value;
+        const integrity = document.getElementById('integrity').value;
+        const availability = document.getElementById('availability').value;
+
+        const businessDependency = document.getElementById('businessDependency').value;
+        const technicalDependency = document.getElementById('technicalDependency').value;
+
+        const frequencyScore = document.getElementById('frequencyScore').value;
+        const recoverabilityScore = document.getElementById('recoverabilityScore').value;
+
+        const formula = `VS-C${confidentiality}-I${integrity}-A${availability}:IS-B${businessDependency}-T${technicalDependency}:F${frequencyScore}:R${recoverabilityScore}`;
+        document.getElementById('formulaTextbox').value = formula;
+
+        // Calculate risk score with updated logic
+        calculateRiskScore(confidentiality, integrity, availability, businessDependency, technicalDependency, frequencyScore, recoverabilityScore);
+    }
+
+    // Function to calculate and display the risk score and level
+    function calculateRiskScore(confidentiality, integrity, availability, businessDependency, technicalDependency, frequencyScore, recoverabilityScore) {
+        // Convert select values to numerical equivalents for score calculation
+        const confidentialityScore = { 'L': 1, 'M': 3, 'H': 5 }[confidentiality];
+        const integrityScore = { 'L': 1, 'M': 3, 'H': 5 }[integrity];
+        const availabilityScore = { 'L': 1, 'M': 3, 'H': 5 }[availability];
+
+        // Vulnerability score average
+        let vulnerabilityScore = (confidentialityScore + integrityScore + availabilityScore) / 3;
+
+        // Get impact score values
+        const businessDependencyScore = parseInt(businessDependency);
+        const technicalDependencyScore = parseInt(technicalDependency);
+
+        // If both business and technical dependency are high (4 or 5), force the total risk to be high
+        if (businessDependencyScore >= 4 && technicalDependencyScore >= 4) {
+            document.getElementById('riskResult').textContent = `Risk Score: High (Due to Business/Technical Dependency)`;
+            document.getElementById('riskLabel').textContent = `Risk Level: HIGH`;
+            return; // Skip further calculations if forced high
+        }
+
+        // If only technical dependency is high, but business dependency is less than 4, follow common formula
+        if (technicalDependencyScore >= 4 && businessDependencyScore < 4) {
+            const impactScore = (businessDependencyScore + technicalDependencyScore) / 2;
+            const frequency = parseInt(frequencyScore);
+            const recoverability = parseInt(recoverabilityScore);
+
+            // Calculate the final Risk Score
+            const riskScore = ((vulnerabilityScore + impactScore + frequency + recoverability) / 4).toFixed(2);
+
+            // Display the risk score
+            document.getElementById('riskResult').textContent = `Risk Score: ${riskScore}`;
+
+            // Determine and display risk level
+            let riskLevel;
+            if (riskScore >= 1 && riskScore <= 2.49) {
+                riskLevel = 'LOW';
+            } else if (riskScore >= 2.5 && riskScore <= 3.49) {
+                riskLevel = 'MEDIUM';
+            } else {
+                riskLevel = 'HIGH';
+            }
+            document.getElementById('riskLabel').textContent = `Risk Level: ${riskLevel}`;
+            return;
+        }
+
+        // For other cases, follow the common risk calculation
+        const impactScore = (businessDependencyScore + technicalDependencyScore) / 2;
+        const frequency = parseInt(frequencyScore);
+        const recoverability = parseInt(recoverabilityScore);
+
+        // Calculate the final Risk Score
+        const riskScore = ((vulnerabilityScore + impactScore + frequency + recoverability) / 4).toFixed(2);
+
+        // Display the risk score
+        document.getElementById('riskResult').textContent = `Risk Score: ${riskScore}`;
+
+        // Determine and display risk level
+        let riskLevel;
+        if (riskScore >= 1 && riskScore <= 2.49) {
+            riskLevel = 'LOW';
+        } else if (riskScore >= 2.5 && riskScore <= 3.49) {
+            riskLevel = 'MEDIUM';
+        } else {
+            riskLevel = 'HIGH';
+        }
+        document.getElementById('riskLabel').textContent = `Risk Level: ${riskLevel}`;
+    }
+
+    // Function to parse the formula and update the select elements
+    function applyFormula() {
+        const formula = document.getElementById('formulaTextbox').value;
+
+        try {
+            const parts = formula.split(':');
+            
+            // Parse Vulnerability Score
+            const vulnerabilityPart = parts[0].split('-');
+            document.getElementById('confidentiality').value = vulnerabilityPart[1].substring(1);
+            document.getElementById('integrity').value = vulnerabilityPart[2].substring(1);
+            document.getElementById('availability').value = vulnerabilityPart[3].substring(1);
+            
+            // Parse Impact Score
+            const impactPart = parts[1].split('-');
+            document.getElementById('businessDependency').value = impactPart[1].substring(1);
+            document.getElementById('technicalDependency').value = impactPart[2].substring(1);
+            
+            // Parse Frequency Score
+            document.getElementById('frequencyScore').value = parts[2].substring(1);
+
+            // Parse Recoverability Score
+            document.getElementById('recoverabilityScore').value = parts[3].substring(1);
+
+            // Update risk score and level after applying formula
+            updateFormula();
+        } catch (error) {
+            console.error('Invalid formula format.');
+        }
+    }
+
+    // Initial formula generation
+    updateFormula();
+
+
+</script>
+
+</body>
+</html>
