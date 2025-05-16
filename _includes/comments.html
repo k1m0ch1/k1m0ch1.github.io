@@ -5,23 +5,34 @@
       <h3><i class="icon icon-comments-o"></i> Comments</h3>
       <div id="disqus_thread"></div>
 
-      <script type="text/javascript">
-        var disqus_shortname = '{{ site.disqus_shortname }}';
-        var disqus_identifier = '{{ page.id }}';
-        var disqus_title = '{{ page.title }}';
-        var disqus_url = '{{ site.url }}{{ post.url }}';
-        /*var disqus_developer = 1;*/
-
-        (function() {
-            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
+      <script src="https://cdn.fastcomments.com/js/embed-page-likes-floating.min.js"></script>
+      <div id="fastcomments-page-likes-floating"></div>
+      <script>
+          window.FastCommentsEmbedPageLikesFloating(document.getElementById('fastcomments-page-likes-floating'), {
+              tenantId: 'IPHcjIqO1X'
+          });
       </script>
 
-      <noscript>
-        Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
-      </noscript>
+      
+      <script src="https://cdn.fastcomments.com/js/embed-v2.min.js"></script>
+      <div id="fastcomments-widget"></div>
+      <script>
+        FastCommentsUI(document.getElementById('fastcomments-widget'), {
+            "tenantId": "IPHcjIqO1X"
+        });
+      </script>
+
+      <script src="https://cdn.fastcomments.com/js/widget-recent-comments.min.js"></script>
+      <div id="fastcomments-widget-recent-comments"></div>
+      <script>
+          FastCommentsRecentComments(document.getElementById('fastcomments-widget-recent-comments'), {
+              tenantId: 'IPHcjIqO1X',
+              urlId: null // If you want to show this widget for a single page, pass in the url or id that represents that page here.
+          });
+      </script>
+      
+      
+
     </div>
 
   </aside>
