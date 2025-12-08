@@ -24,7 +24,7 @@ while people on the place having a hardtime to get some internet, this design is
 
 The design is pretty simple, when user do some action like making a new pinpoint, giving information, every basic CRUD will be stored into indexedDB, for reference you can use this https://github.com/eFishery/pouchy-store the pouchyDB is working kinda like indexedDB, remember pouchDB have not conflict resolution, no built-in conflict resolution logic, pouchyDB is simply edit the same document offline and later sync.
 
-![invitation letter](http://k1m0ch1.github.io/images/high-level-arch)
+![simple high level](http://k1m0ch1.github.io/images/high-level-arch.png)
 
 remember pouchyDB using document database, while indexedDB structure level is using object stores
 
@@ -106,13 +106,10 @@ we need to make some ruleset on data, to prevent the conflict data, what happen 
 
 here is some oveview of the data type:
 
-```markdown
-
 | Data type  | Conflict occurance | Strategy |
 | ------------- | ------------- | ------------- |
 | Map Pinpoint  | Common | only append, or create only with new lang&lot |
 | Report  | Rare  | Field level merge |
-```
 
 1. Append only
 
@@ -130,13 +127,10 @@ what todo? this will be help when new status resource is added
 
 this feature is also important in order to choose which data is actually true
 
-```markdown
-
 | Role  | Permission |
 | ------------- | ------------- | 
 | Anonymous  | Can Report, Can pinpoint |
 | volunteer  | update report, update pinpoint  |
-```
 
 simple approach you can using verified=true to set by trusted role 
 
