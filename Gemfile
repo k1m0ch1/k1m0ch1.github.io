@@ -5,8 +5,11 @@ group :jekyll_plugins do
     gem "bourbon"
     gem "jekyll-paginate"
 end
-gem 'html-proofer'
+group :ci do
+  gem 'html-proofer'
+end
 gem 'tzinfo'
 gem 'tzinfo-data'
 
 gem "webrick", "~> 1.7"
+gem "jekyll-sass-converter", "~> 2.0"
