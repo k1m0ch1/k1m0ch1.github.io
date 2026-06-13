@@ -14,3 +14,53 @@ layout: default
 </article>
 
 {% include comments.html %}
+
+<script>
+(function() {
+  var tweetPattern = /^https?:\/\/(twitter\.com|x\.com)\/[^\/]+\/status\/\d+\/?$/;
+  var hasTweet = false;
+
+  function makeEmbed(url, el) {
+    var blockquote = document.createElement('blockquote');
+    blockquote.className = 'twitter-tweet';
+    blockquote.setAttribute('data-dnt', 'true');
+    var a = document.createElement('a');
+    a.href = url;
+    blockquote.appendChild(a);
+    el.replaceWith(blockquote);
+    hasTweet = true;
+  }
+
+  document.querySelectorAll('.post-content a').forEach(function(a) {
+    var href = a.getAttribute('href');
+    if (!href || !tweetPattern.test(href.trim())) return;
+    var p = a.parentElement;
+    if (p.tagName !== 'P' || p.childNodes.length !== 1) return;
+    makeEmbed(href.trim(), p);
+  });
+
+  document.querySelectorAll('.post-content p').forEach(function(p) {
+    var text = p.textContent.trim();
+    if (!tweetPattern.test(text)) return;
+    makeEmbed(text, p);
+  });
+
+  if (!hasTweet) return;
+
+  window.twttr = (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0], t = window.twttr || {};
+    if (d.getElementById(id)) return t;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = 'https://platform.twitter.com/widgets.js';
+    fjs.parentNode.insertBefore(js, fjs);
+    t._e = [];
+    t.ready = function(f) { t._e.push(f); };
+    return t;
+  }(document, 'script', 'twitter-wjs'));
+
+  window.twttr.ready(function(twttr) {
+    twttr.widgets.load();
+  });
+})();
+</script>
