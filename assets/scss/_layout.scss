@@ -68,62 +68,138 @@ hr {
   }
 }
 
-.site-header {
-  border-bottom: 1px solid lighten($light-gray-color, 5%);
-  margin-bottom: $small-spacing;
-  min-height: 80px;
+$sidebar-width: 260px;
+
+.site-shell {
+  display: flex;
+  align-items: flex-start;
+  max-width: 1060px;
+  margin: 0 auto;
 }
 
-.intro {
-  .author-name {
-    display: inline-block;
-    padding: 0 .2em;
-    background: lighten($light-gray-color, 15%)
-  }
+.sidebar {
+  flex: 0 0 $sidebar-width;
+  width: $sidebar-width;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  border-right: 1px solid lighten($light-gray-color, 10%);
+}
+
+.sidebar-inner {
+  padding: $base-spacing;
+}
+
+.avatar {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: $base-border-radius;
+  object-fit: cover;
+  margin-bottom: $small-spacing;
+}
+
+.site-name {
+  font-size: rem(20);
+  margin-bottom: 0.2em;
 
   a {
-    @extend .link;
-  }
-
-  .container {
-    padding-bottom: 0;
+    color: $primary-color;
   }
 }
 
-.logo {
-  float: left;
-  margin: 0 0 1em 0;
-  cursor: pointer;
-  letter-spacing: 0.8px;
-  font-size: 20px;
-  line-height: 28px;
-  font-weight: 300;
-
-  span {
-    font-weight: 700;
-  }
+.role {
+  color: $medium-gray-color;
+  font-size: rem(14);
+  margin-bottom: $small-spacing;
 }
 
-.nav {
-  min-height: 64px;
+.bio {
+  font-size: rem(14);
+  color: $base-font-color;
+  margin-bottom: $base-spacing;
 }
 
-.navbar {
-  float: right;
-  margin: 0;
-  position: relative;
+.social-row {
+  margin: 0 0 $base-spacing;
   padding: 0;
-  pointer-events: all;
-  cursor: pointer;
+  list-style: none;
 
   li {
     display: inline-block;
-    padding: 0 .6em;
+    margin-right: 0.6em;
   }
 
   a {
     @extend .link;
   }
+}
+
+.side-nav {
+  margin-bottom: $base-spacing;
+  border-top: 1px solid lighten($light-gray-color, 10%);
+  padding-top: $small-spacing;
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    margin-bottom: 0.3em;
+  }
+
+  a {
+    @extend .link;
+
+    &:before {
+      content: "› ";
+      color: $blue-color;
+    }
+  }
+}
+
+.side-portfolio {
+  border-top: 1px solid lighten($light-gray-color, 10%);
+  padding-top: $small-spacing;
+}
+
+.side-title {
+  font-size: rem(14);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: $medium-gray-color;
+  margin-bottom: 0.5em;
+}
+
+.side-project-list {
+  list-style: none;
+  margin: 0 0 0.6em;
+  padding: 0;
+  font-size: rem(14);
+
+  li {
+    margin-bottom: 0.4em;
+  }
+
+  a {
+    @extend .link;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.side-more-link {
+  font-size: rem(13);
+}
+
+.wrapper {
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .post-list {
@@ -280,6 +356,101 @@ hr {
   margin-top: $base-spacing * 2;
 }
 
+// About page, CV style
+.cv {
+  .cv-header {
+    @extend .clearfix;
+
+    margin-bottom: $base-spacing;
+    padding-bottom: $small-spacing;
+    border-bottom: 1px solid lighten($light-gray-color, 10%);
+  }
+
+  .cv-photo {
+    float: left;
+    width: 140px;
+    margin: 0 $small-spacing $small-spacing 0;
+    border-radius: $base-border-radius;
+  }
+
+  .cv-name {
+    font-size: rem(24);
+    color: $primary-color;
+    text-transform: none;
+    letter-spacing: 0;
+    border-bottom: 0;
+    padding-bottom: 0;
+    margin: 0 0 0.1em;
+  }
+
+  .cv-role {
+    font-size: rem(15);
+    color: $blue-color;
+    margin: 0 0 0.4em;
+  }
+
+  .cv-contact {
+    font-size: rem(14);
+    color: darken($medium-gray-color, 20%);
+    margin: 0;
+  }
+
+  h2 {
+    font-size: rem(15);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: darken($medium-gray-color, 25%);
+    border-bottom: 1px solid lighten($light-gray-color, 10%);
+    padding-bottom: 0.2em;
+    margin: $base-spacing 0 0.6em;
+  }
+
+  h3 {
+    font-size: rem(17);
+    margin: $small-spacing 0 0.1em;
+  }
+
+  .cv-meta {
+    font-size: rem(13);
+    color: darken($medium-gray-color, 20%);
+    margin: 0 0 0.4em;
+  }
+
+  li {
+    margin-bottom: 0.15em;
+  }
+}
+
+// Collapse the sidebar to a static top block below tablet width
+@media (max-width: 768px) {
+  .site-shell {
+    display: block;
+  }
+
+  .sidebar {
+    position: static;
+    height: auto;
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid lighten($light-gray-color, 10%);
+  }
+
+  .avatar {
+    float: left;
+    width: 96px;
+    margin-right: $small-spacing;
+  }
+
+  .site-name,
+  .role {
+    overflow: hidden;
+  }
+
+  .bio {
+    clear: both;
+  }
+}
+
 // This applies from 0px to 600px
 @media (max-width: 600px) {
   .date-label {
@@ -307,5 +478,9 @@ hr {
       border-bottom: 2px solid transparent;
       color: $blue-color;
     }
+  }
+
+  .cv-photo {
+    width: 100px;
   }
 }

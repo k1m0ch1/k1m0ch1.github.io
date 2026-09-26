@@ -1,0 +1,39 @@
+<aside class="sidebar">
+  <div class="sidebar-inner">
+    <a href="{{ '/' | prepend: site.baseurl }}" class="avatar-link">
+      <img class="avatar" src="{{ site.author.thumb | prepend: site.baseurl }}" alt="{{ site.author.name }}">
+    </a>
+    <h1 class="site-name"><a href="{{ '/' | prepend: site.baseurl }}">{{ site.author.name }}</a></h1>
+    <p class="role">{{ site.author.job }}</p>
+    <p class="bio">{{ site.author.bio }}</p>
+
+    <ul class="social-row">
+      <li><a href="https://github.com/k1m0ch1" title="GitHub"><i class="fa fa-github fa-lg"></i></a></li>
+      <li><a href="https://twitter.com/BukanYahya" title="Twitter"><i class="fa fa-twitter fa-lg"></i></a></li>
+      <li><a href="https://twitch.com/buk4nyahya" title="Twitch"><i class="fa fa-twitch fa-lg"></i></a></li>
+      <li><a href="https://www.youtube.com/channel/UCrDI93zGBH6C6GXTGl5gPfg" title="YouTube"><i class="fa fa-youtube fa-lg"></i></a></li>
+      <li><a href="https://www.linkedin.com/in/yahya-fadhlulloh-al-fatih-a568a455" title="LinkedIn"><i class="fa fa-linkedin fa-lg"></i></a></li>
+    </ul>
+
+    <nav class="side-nav">
+      <ul>
+        <li><a href="{{ '/' | prepend: site.baseurl }}">Home</a></li>
+        <li><a href="{{ '/blogs' | prepend: site.baseurl }}">Blogs</a></li>
+        <li><a href="{{ '/projects' | prepend: site.baseurl }}">Projects</a></li>
+        <li><a href="{{ '/about' | prepend: site.baseurl }}">About</a></li>
+        <li><a href="{{ '/feed.xml' | prepend: site.baseurl }}" target="_blank">RSS</a></li>
+      </ul>
+    </nav>
+
+    <div class="side-portfolio">
+      <h2 class="side-title">Selected Work</h2>
+      <ul class="side-project-list">
+        {% assign top_projects = site.categories.projects | sort: 'date' | reverse %}
+        {% for project in top_projects limit:5 %}
+          <li><a href="{{ project.url | prepend: site.baseurl }}" title="{{ project.title }}">{{ project.title }}</a></li>
+        {% endfor %}
+      </ul>
+      <a class="side-more-link link" href="{{ '/projects' | prepend: site.baseurl }}">See all projects →</a>
+    </div>
+  </div>
+</aside>
