@@ -1,28 +1,82 @@
+{% comment %}
+  komen — the comment system behind yggdrasil.id.
+
+  Markup only; all rendering happens in /assets/js/komen.js with textContent,
+  so nothing a visitor types can ever become HTML. The API base URL comes from
+  `comments_api` in _config.yml.
+{% endcomment %}
 {% if site.comments %}
-  <aside id="comments" class="disqus">
+<aside id="comments" class="komen"
+       data-api="{{ site.comments_api | default: 'https://komen.yggdrasil.id' }}"
+       data-post="{{ page.url }}"
+       data-title="{{ page.title | escape }}">
+  <div class="container">
+    <h3 class="komen-title">Comments <span class="komen-count" id="komen-count"></span></h3>
 
-    <div class="container">
-      <h3><i class="icon icon-comments-o"></i> Comments</h3>
-      <div id="disqus_thread"></div>
-
-      <script type="text/javascript">
-        var disqus_shortname = '{{ site.disqus_shortname }}';
-        var disqus_identifier = '{{ page.id }}';
-        var disqus_title = '{{ page.title }}';
-        var disqus_url = '{{ site.url }}{{ post.url }}';
-        /*var disqus_developer = 1;*/
-
-        (function() {
-            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
-      </script>
-
-      <noscript>
-        Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
-      </noscript>
+    <div id="komen-list" class="komen-list">
+      <p class="komen-note">Loading comments…</p>
     </div>
 
-  </aside>
+    <form id="komen-form" class="komen-form" autocomplete="off">
+      <label class="komen-label" for="komen-body">Leave a comment</label>
+      <textarea id="komen-body" name="body" rows="4" maxlength="2000"
+                placeholder="Say something. No account needed — you get a random name."
+                required></textarea>
+
+      {%- comment -%} Honeypot: hidden from humans, irresistible to bots. {%- endcomment -%}
+      <div class="komen-hp" aria-hidden="true">
+        <label for="komen-website">Website</label>
+        <input id="komen-website" name="website" type="text" tabindex="-1" autocomplete="off">
+      </div>
+
+      <div class="komen-actions">
+        <button type="submit" id="komen-submit">Post comment</button>
+        <span class="komen-status" id="komen-status" role="status" aria-live="polite"></span>
+      </div>
+      <p class="komen-hint">
+        Names are generated server-side and comments are plain text.
+        Be nice, keep it short.
+      </p>
+    </form>
+  </div>
+</aside>
+
+<style>
+  .komen .container { padding-top: 0; }
+  .komen-title { margin-bottom: 0.8em; }
+  .komen-count { color: #999; font-weight: normal; font-size: 0.8em; }
+  .komen-list { margin-bottom: 2em; }
+  .komen-note, .komen-hint { color: #999; font-size: 0.85em; }
+  .komen-comment {
+    border-left: 2px solid #e4e4e4;
+    padding: 0.15em 0 0.15em 0.9em;
+    margin-bottom: 1.1em;
+  }
+  .komen-comment.is-author { border-left-color: #147a6b; }
+  .komen-comment.is-reply { margin-left: 1.6em; }
+  .komen-meta { font-size: 0.8em; color: #999; margin-bottom: 0.2em; }
+  .komen-name { color: #333; font-weight: bold; }
+  .komen-badge {
+    color: #147a6b; border: 1px solid #147a6b; border-radius: 999px;
+    padding: 0 0.5em; margin-left: 0.4em; font-size: 0.9em;
+  }
+  .komen-text { white-space: pre-wrap; overflow-wrap: break-word; margin: 0 0 0.2em; }
+  .komen-onx { font-size: 0.8em; }
+  .komen-form textarea {
+    width: 100%; padding: 0.6em; border: 1px solid #ccc; border-radius: 0.52em;
+    font-family: inherit; font-size: inherit; line-height: 1.5; resize: vertical;
+  }
+  .komen-actions { display: flex; align-items: center; gap: 0.8em; margin-top: 0.5em; }
+  .komen-actions button {
+    font-family: inherit; font-size: inherit; cursor: pointer;
+    background: #147a6b; color: #fff; border: 1px solid #147a6b;
+    border-radius: 0.52em; padding: 0.4em 1em;
+  }
+  .komen-actions button[disabled] { opacity: 0.5; cursor: progress; }
+  .komen-status { font-size: 0.85em; color: #999; }
+  .komen-status.is-error { color: #a11; }
+  .komen-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+</style>
+
+<script src="{{ '/assets/js/komen.js' | prepend: site.baseurl }}" defer></script>
 {% endif %}

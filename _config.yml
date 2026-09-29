@@ -13,9 +13,10 @@ paginate_path: "/page:num/"
 
 google_analytics: UA-XXXXX-XX
 repo: http://github.com/k1m0ch1/k1m0ch1.github.io
-disqus_shortname: "k1m0ch1"
 twitter_username: "bukanyahya"
-comments: true 
+comments: true
+# Comment API (see the `komen` project). Leave empty to disable comments.
+comments_api: "https://komen.yggdrasil.id" 
 
 # Build settings
 permalink   : /:year/:title/
