@@ -91,5 +91,9 @@
   .komen-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 </style>
 
-<script src="{{ '/assets/js/komen.js' | prepend: site.baseurl }}" defer></script>
+{%- comment -%}
+  The `?v=` stamp is the build time: Cloudflare caches .js for hours, so a
+  versionless URL would keep serving an old widget after an update.
+{%- endcomment -%}
+<script src="{{ '/assets/js/komen.js' | prepend: site.baseurl }}?v={{ site.time | date: '%s' }}" defer></script>
 {% endif %}
