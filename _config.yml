@@ -3,9 +3,11 @@ title: "k1m0ch1"
 title2: "Blog" # default: ""
 description: "free thoughtfull from my mind"
 keywords: ""
-url: https://k1m0ch1.github.io/ # site url
+url: https://yggdrasil.id # site url (no trailing slash)
 baseurl: "" # apply repo name if use it under gh-pages branch
 # baseurl: null # apply null if repo name is something like username.github.io
+# Fallback share image (1200x630) used when a post has no `cover:` front matter
+cover: /images/og-default.png
 paginate: 15
 paginate_path: "/page:num/"
 

@@ -4,6 +4,9 @@ title:  "AI fatigue, you use AI wrong all this time"
 date:   2026-09-28 13:00:00 +0700
 categories: security pentesting ai claudecode blogs blog
 comments: true
+description: "Why using AI every day for four months made my brain more tired, and why I finally moved to pi after Claude flagged me for doing my own job."
+keywords: "AI fatigue, AI harness, claude code, pi, system prompt leak"
+cover: /images/ai-fatigue-cover.png
 ---
 
 yea, you might be notice it, my 4 previous blog is actually using AI, and yes I can't deny it, I'm actually trying to understand "what if my journal is written by AI", and you already knew, it turn out to be full with AI slop.
