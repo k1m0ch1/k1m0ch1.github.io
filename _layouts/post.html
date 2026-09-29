@@ -24,6 +24,9 @@ layout: default
     var blockquote = document.createElement('blockquote');
     blockquote.className = 'twitter-tweet';
     blockquote.setAttribute('data-dnt', 'true');
+    /* Render X posts at half the default width and centre them in the column. */
+    blockquote.setAttribute('data-width', '275');
+    blockquote.setAttribute('data-align', 'center');
     var a = document.createElement('a');
     a.href = url;
     blockquote.appendChild(a);

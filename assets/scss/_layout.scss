@@ -276,6 +276,29 @@ $sidebar-width: 260px;
   @extend .clearfix;
 }
 
+// Media inside a post should stay in a comfortable, eye-sized range and sit
+// centred in the column instead of stretching to the full width.
+.post-content {
+  // Long bare URLs should wrap instead of forcing horizontal scroll on mobile.
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  img {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 420px;
+    margin: $base-spacing auto;
+  }
+
+  // X/Twitter embeds: half the default width, centred in the column.
+  .twitter-tweet-rendered {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
+
 .pagination {
   li, a, span {
     display: inline-block;
