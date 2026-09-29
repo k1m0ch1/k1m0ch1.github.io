@@ -221,18 +221,38 @@
       thread(comments).forEach(function (c) { listEl.appendChild(render(c)); });
     }
     countEl.textContent = comments.length ? "(" + comments.length + ")" : "";
-    highlightFromUrl();
+    scheduleHighlight();
   }
 
   /// `?comment=12` scrolls to that comment and flashes it.
-  function highlightFromUrl() {
+  ///
+  /// Retried a couple of times: the X embeds above the comments grow after
+  /// load and push the target down, so a single scroll lands short.
+  function highlightFromUrl(attempt) {
+    attempt = attempt || 0;
     var id = commentIdFromLocation();
     if (!id) return;
     var target = document.getElementById("komen-c-" + id);
     if (!target) return;
+
     target.classList.add("is-target");
-    var top = target.getBoundingClientRect().top + window.pageYOffset - 90;
-    window.scrollTo({ top: top, behavior: "smooth" });
+
+    var rect = target.getBoundingClientRect();
+    var comfortablyVisible = rect.top >= 80 && rect.bottom <= window.innerHeight - 40;
+    if (attempt > 0 && comfortablyVisible) return; // do not fight the reader
+
+    var top = rect.top + window.pageYOffset - 90;
+    if (attempt === 0) {
+      window.scrollTo({ top: top, behavior: "smooth" });
+    } else {
+      window.scrollTo(0, top); // instant, so late layout shifts still land
+    }
+  }
+
+  function scheduleHighlight() {
+    highlightFromUrl(0);
+    setTimeout(function () { highlightFromUrl(1); }, 800);
+    setTimeout(function () { highlightFromUrl(2); }, 2200);
   }
 
   // --- network -------------------------------------------------------------
