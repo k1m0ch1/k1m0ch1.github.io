@@ -35,7 +35,8 @@
       </div>
       <p class="komen-hint">
         Names are generated server-side and comments are plain text.
-        Be nice, keep it short.
+        Want to answer someone? Use their <strong>Reply on X</strong> button —
+        your tweet is picked up here automatically.
       </p>
     </form>
   </div>
@@ -51,16 +52,28 @@
     border-left: 2px solid #e4e4e4;
     padding: 0.15em 0 0.15em 0.9em;
     margin-bottom: 1.1em;
+    border-radius: 0 0.3em 0.3em 0;
+    transition: background-color 400ms ease;
   }
   .komen-comment.is-author { border-left-color: #147a6b; }
+  .komen-comment.is-x { border-left-color: #1d9bf0; }
   .komen-comment.is-reply { margin-left: 1.6em; }
+  .komen-comment.is-target { background: #fff8dc; }
   .komen-meta { font-size: 0.8em; color: #999; margin-bottom: 0.2em; }
   .komen-name { color: #333; font-weight: bold; }
   .komen-badge {
     color: #147a6b; border: 1px solid #147a6b; border-radius: 999px;
     padding: 0 0.5em; margin-left: 0.4em; font-size: 0.9em;
   }
+  .komen-badge.is-x { color: #1d9bf0; border-color: #1d9bf0; }
   .komen-text { white-space: pre-wrap; overflow-wrap: break-word; margin: 0 0 0.2em; }
+  .komen-actions-row { display: flex; align-items: center; gap: 0.8em; margin-top: 0.2em; }
+  .komen-reply {
+    font-family: inherit; font-size: 0.8em; cursor: pointer;
+    background: none; color: #999; border: 1px solid #ddd;
+    border-radius: 999px; padding: 0.05em 0.7em;
+  }
+  .komen-reply:hover { color: #1d9bf0; border-color: #1d9bf0; }
   .komen-onx { font-size: 0.8em; }
   .komen-form textarea {
     width: 100%; padding: 0.6em; border: 1px solid #ccc; border-radius: 0.52em;

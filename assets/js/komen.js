@@ -1,13 +1,22 @@
 /* komen — blog comment widget.
  *
+ * Flow
+ * ----
+ *  • reads the thread from the komen API and renders it,
+ *  • every comment gets a "Reply on X" button whose link opens the X composer
+ *    pre-filled with that comment's deep link
+ *    (`https://yggdrasil.id/<post>/?comment=<id>`),
+ *  • on load it asks the API to pull in any new X replies that carry such a
+ *    deep link, then re-renders if something arrived,
+ *  • visiting `…?comment=<id>` scrolls to and highlights that comment.
+ *
  * Security notes for this file:
- *   - every value coming from the API is written with textContent (or set as
- *     an attribute after validation), never with innerHTML, so a comment
+ *   - every value coming from the API is written with textContent (or set as an
+ *     attribute after validation), never with innerHTML, so a comment
  *     containing markup is displayed as literal text,
- *   - href attributes are only ever built by the widget itself from a URL the
- *     server already validated as an x.com permalink,
- *   - the honeypot + elapsed-time fields piggyback on the POST so trivial
- *     bots get filtered server-side.
+ *   - href attributes are only ever built by the widget itself: X links must
+ *     match a strict pattern, and composer URLs are assembled from the API's
+ *     own deep-link base.
  */
 (function () {
   "use strict";
@@ -26,6 +35,12 @@
   var statusEl = document.getElementById("komen-status");
   var loadedAt = Date.now();
 
+  // Filled in from the API's reply payload.
+  var deepLinkBase = null;
+  var announcementTweetId = null;
+  var xReadEnabled = false;
+  var syncedThisLoad = false;
+
   if (!API) {
     listEl.textContent = "";
     listEl.appendChild(note("Comments are not configured for this site."));
@@ -43,6 +58,7 @@
   }
 
   function status(text, isError) {
+    if (!statusEl) return;
     statusEl.textContent = text || "";
     statusEl.className = "komen-status" + (isError ? " is-error" : "");
   }
@@ -56,25 +72,70 @@
     return new Date(seconds * 1000).toLocaleDateString();
   }
 
-  // Only trust a URL we could have produced ourselves.
-  function safeTweetUrl(url) {
+  /// Only trust an X URL we could have produced ourselves.
+  function safeXUrl(url) {
     if (typeof url !== "string") return null;
-    if (!/^https:\/\/x\.com\/[A-Za-z0-9_]{1,20}\/status\/\d{5,25}$/.test(url)) return null;
+    if (!/^https:\/\/x\.com\/(i\/status|[A-Za-z0-9_]{1,15}\/status)\/\d{5,25}$/.test(url)) return null;
     return url;
   }
+
+  /// Comment id from `?comment=<id>`, or null.
+  function commentIdFromLocation() {
+    var m = /(?:^|[?&])comment=(\d+)/.exec(window.location.search);
+    return m ? parseInt(m[1], 10) : null;
+  }
+
+  /// X composer link that replies to the announcement tweet with this
+  /// comment's deep link. Built only from pieces the API handed us.
+  function replyIntentUrl(commentId) {
+    if (!deepLinkBase) return null;
+    var deepLink = deepLinkBase + commentId;
+    var base = announcementTweetId
+      ? "https://x.com/intent/post?in_reply_to=" + announcementTweetId
+      : "https://x.com/intent/post?text=";
+    return announcementTweetId
+      ? base + "&text=" + encodeURIComponent(deepLink)
+      : base + encodeURIComponent(deepLink);
+  }
+
+  function openIntent(url) {
+    window.open(url, "_blank", "noopener,noreferrer");
+  }
+
+  // --- rendering -----------------------------------------------------------
 
   function render(comment) {
     var wrap = document.createElement("div");
     wrap.className = "komen-comment" +
       (comment.is_author ? " is-author" : "") +
-      (comment.parent_id ? " is-reply" : "");
+      (comment.parent_id ? " is-reply" : "") +
+      (comment.source === "x" ? " is-x" : "");
+    wrap.setAttribute("data-comment-id", String(comment.id));
+    wrap.id = "komen-c-" + comment.id;
 
     var meta = document.createElement("div");
     meta.className = "komen-meta";
 
+    var xUrl = safeXUrl(comment.x_url);
     var name = document.createElement("span");
     name.className = "komen-name";
-    name.textContent = comment.name || "anonymous";
+
+    if (comment.source === "x" && comment.x_username) {
+      // Link the handle to the real X profile: the widget builds this URL, and
+      // the handle has already been validated by the API.
+      if (/^[A-Za-z0-9_]{1,15}$/.test(comment.x_username)) {
+        var profile = document.createElement("a");
+        profile.href = "https://x.com/" + comment.x_username;
+        profile.target = "_blank";
+        profile.rel = "noopener noreferrer nofollow";
+        profile.textContent = "@" + comment.x_username;
+        name.appendChild(profile);
+      } else {
+        name.textContent = "@" + comment.x_username;
+      }
+    } else {
+      name.textContent = comment.name || "anonymous";
+    }
     meta.appendChild(name);
 
     if (comment.is_author) {
@@ -83,6 +144,12 @@
       badge.textContent = "author";
       meta.appendChild(badge);
     }
+    if (comment.source === "x") {
+      var via = document.createElement("span");
+      via.className = "komen-badge is-x";
+      via.textContent = "via X";
+      meta.appendChild(via);
+    }
 
     var when = document.createElement("span");
     when.textContent = " · " + timeAgo(comment.created_at);
@@ -90,22 +157,38 @@
 
     wrap.appendChild(meta);
 
-    var text = document.createElement("p");
-    text.className = "komen-text";
-    text.textContent = comment.body; // ← the whole XSS story
-    wrap.appendChild(text);
-
-    var tweet = safeTweetUrl(comment.quote_tweet_url);
-    if (tweet) {
-      var link = document.createElement("a");
-      link.className = "komen-onx";
-      link.href = tweet;
-      link.target = "_blank";
-      link.rel = "noopener noreferrer nofollow";
-      link.textContent = "replied on X ↗";
-      wrap.appendChild(link);
+    if (comment.body) {
+      var text = document.createElement("p");
+      text.className = "komen-text";
+      text.textContent = comment.body; // ← the whole XSS story
+      wrap.appendChild(text);
     }
 
+    var actions = document.createElement("div");
+    actions.className = "komen-actions-row";
+
+    var intent = replyIntentUrl(comment.id);
+    if (intent) {
+      var reply = document.createElement("button");
+      reply.type = "button";
+      reply.className = "komen-reply";
+      reply.textContent = "Reply on X";
+      reply.title = "Open X and reply with a link back to this comment";
+      reply.addEventListener("click", function () { openIntent(intent); });
+      actions.appendChild(reply);
+    }
+
+    if (xUrl) {
+      var link = document.createElement("a");
+      link.className = "komen-onx";
+      link.href = xUrl;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer nofollow";
+      link.textContent = "on X ↗";
+      actions.appendChild(link);
+    }
+
+    if (actions.childNodes.length) wrap.appendChild(actions);
     return wrap;
   }
 
@@ -138,6 +221,18 @@
       thread(comments).forEach(function (c) { listEl.appendChild(render(c)); });
     }
     countEl.textContent = comments.length ? "(" + comments.length + ")" : "";
+    highlightFromUrl();
+  }
+
+  /// `?comment=12` scrolls to that comment and flashes it.
+  function highlightFromUrl() {
+    var id = commentIdFromLocation();
+    if (!id) return;
+    var target = document.getElementById("komen-c-" + id);
+    if (!target) return;
+    target.classList.add("is-target");
+    var top = target.getBoundingClientRect().top + window.pageYOffset - 90;
+    window.scrollTo({ top: top, behavior: "smooth" });
   }
 
   // --- network -------------------------------------------------------------
@@ -150,12 +245,43 @@
         if (!res.ok) throw new Error("HTTP " + res.status);
         return res.json();
       })
-      .then(function (data) { draw(data.comments || []); })
+      .then(function (data) {
+        deepLinkBase = typeof data.deep_link_base === "string" ? data.deep_link_base : null;
+        xReadEnabled = data.x_read_enabled === true;
+
+        var tweet = safeXUrl(data.announcement_tweet);
+        announcementTweetId = tweet ? tweet.split("/").pop() : null;
+
+        draw(data.comments || []);
+        maybeSync();
+      })
       .catch(function () {
         listEl.textContent = "";
         listEl.appendChild(note("Comments are unavailable right now."));
       });
   }
+
+  /// Ask the API to pull in new X replies. Runs once per page load; the server
+  /// has its own cooldown, and silently does nothing while no token is set.
+  function maybeSync() {
+    if (syncedThisLoad || !xReadEnabled) return;
+    syncedThisLoad = true;
+
+    fetch(API + "/api/sync", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify({ post: POST })
+    })
+      .then(function (res) {
+        return res.ok ? res.json() : null;
+      })
+      .then(function (r) {
+        if (r && r.added > 0) load(); // new replies arrived
+      })
+      .catch(function () { /* stay quiet, comments are already rendered */ });
+  }
+
+  // --- posting -------------------------------------------------------------
 
   if (!form) return;
 
@@ -191,7 +317,7 @@
         load();
       })
       .catch(function (err) {
-        status(err.message === "rate_limited" || /slow down/i.test(err.message)
+        status(/slow down/i.test(err.message)
           ? "you are commenting too fast — try again in a moment"
           : "could not post: " + err.message, true);
       })
