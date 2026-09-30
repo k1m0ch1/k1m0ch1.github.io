@@ -6,7 +6,10 @@
  *    view never spends a request against the metered X read provider,
  *  • every comment gets a "Reply on X" button that opens X with one pre-filled
  *    tweet containing that comment's deep link
- *    (`https://yggdrasil.id/<post>/?comment=<id>`),
+ *    (`https://yggdrasil.id/<post>/?comment=<id>`); the click also tells the API
+ *    to look for the reply in ~3 minutes,
+ *  • the page itself never triggers an import — that is the click's job, and the
+ *    scheduler's,
  *  • visiting `…?comment=<id>` scrolls to and highlights that comment,
  *  • replies written on X are pulled in by `komen --sync-all` on a timer, and
  *    show up here on the next load.
@@ -94,7 +97,22 @@
       encodeURIComponent(deepLinkBase + commentId);
   }
 
+  /// Tell the API that somebody is on their way to reply, so it can ask X again
+  /// in a few minutes. Deliberately fired from the *click*, never from a page
+  /// load: it is a hint that costs nothing, and the page itself stays free.
+  function hintUpcomingReply() {
+    try {
+      fetch(API + "/api/reply-intent", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ post: POST }),
+        keepalive: true
+      }).catch(function () { /* best effort, nothing depends on it */ });
+    } catch (e) { /* old browser: the daily sweep still catches it */ }
+  }
+
   function openIntent(url) {
+    hintUpcomingReply();
     window.open(url, "_blank", "noopener,noreferrer");
   }
 
