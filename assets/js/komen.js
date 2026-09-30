@@ -2,13 +2,14 @@
  *
  * Flow
  * ----
- *  • reads the thread from the komen API and renders it,
- *  • every comment gets a "Reply on X" button whose link opens the X composer
- *    pre-filled with that comment's deep link
+ *  • reads the thread from the komen API — the site's own database, so a page
+ *    view never spends a request against the metered X read provider,
+ *  • every comment gets a "Reply on X" button that opens X with one pre-filled
+ *    tweet containing that comment's deep link
  *    (`https://yggdrasil.id/<post>/?comment=<id>`),
- *  • on load it asks the API to pull in any new X replies that carry such a
- *    deep link, then re-renders if something arrived,
- *  • visiting `…?comment=<id>` scrolls to and highlights that comment.
+ *  • visiting `…?comment=<id>` scrolls to and highlights that comment,
+ *  • replies written on X are pulled in by `komen --sync-all` on a timer, and
+ *    show up here on the next load.
  *
  * Security notes for this file:
  *   - every value coming from the API is written with textContent (or set as an
@@ -37,9 +38,6 @@
 
   // Filled in from the API's reply payload.
   var deepLinkBase = null;
-  var announcementTweetId = null;
-  var xReadEnabled = false;
-  var syncedThisLoad = false;
 
   if (!API) {
     listEl.textContent = "";
@@ -85,17 +83,15 @@
     return m ? parseInt(m[1], 10) : null;
   }
 
-  /// X composer link that replies to the announcement tweet with this
-  /// comment's deep link. Built only from pieces the API handed us.
+  /// X composer link holding one pre-filled tweet: this comment's deep link.
+  ///
+  /// Deliberately *not* a reply to the announcement tweet — that made X open a
+  /// thread (the parent post plus the new one) when all we want is a single
+  /// post carrying the link.
   function replyIntentUrl(commentId) {
     if (!deepLinkBase) return null;
-    var deepLink = deepLinkBase + commentId;
-    var base = announcementTweetId
-      ? "https://x.com/intent/post?in_reply_to=" + announcementTweetId
-      : "https://x.com/intent/post?text=";
-    return announcementTweetId
-      ? base + "&text=" + encodeURIComponent(deepLink)
-      : base + encodeURIComponent(deepLink);
+    return "https://x.com/intent/post?text=" +
+      encodeURIComponent(deepLinkBase + commentId);
   }
 
   function openIntent(url) {
@@ -267,38 +263,12 @@
       })
       .then(function (data) {
         deepLinkBase = typeof data.deep_link_base === "string" ? data.deep_link_base : null;
-        xReadEnabled = data.x_read_enabled === true;
-
-        var tweet = safeXUrl(data.announcement_tweet);
-        announcementTweetId = tweet ? tweet.split("/").pop() : null;
-
         draw(data.comments || []);
-        maybeSync();
       })
       .catch(function () {
         listEl.textContent = "";
         listEl.appendChild(note("Comments are unavailable right now."));
       });
-  }
-
-  /// Ask the API to pull in new X replies. Runs once per page load; the server
-  /// has its own cooldown, and silently does nothing while no token is set.
-  function maybeSync() {
-    if (syncedThisLoad || !xReadEnabled) return;
-    syncedThisLoad = true;
-
-    fetch(API + "/api/sync", {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Accept: "application/json" },
-      body: JSON.stringify({ post: POST })
-    })
-      .then(function (res) {
-        return res.ok ? res.json() : null;
-      })
-      .then(function (r) {
-        if (r && r.added > 0) load(); // new replies arrived
-      })
-      .catch(function () { /* stay quiet, comments are already rendered */ });
   }
 
   // --- posting -------------------------------------------------------------
