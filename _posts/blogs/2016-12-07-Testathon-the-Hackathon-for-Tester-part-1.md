@@ -4,6 +4,7 @@ title:  "Testathon, The Hackaton for Tester part 1"
 date:   2016-12-07 10:54:00 +0700
 categories: testathon hackaton spotify blogs blog
 comments: false
+cover: /images/og/2016-12-07-Testathon-the-Hackathon-for-Tester-part-1.png
 ---
 
 > Testathon is an event, typically lasting several days, in which a large number of people meet to engage in collaborative computer Tester

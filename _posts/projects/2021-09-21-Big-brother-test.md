@@ -4,6 +4,7 @@ title:  "Big Brother Test - Application Reverse Engineering to check the privacy
 date:   2021-09-21 16:01:00 +0700
 categories: projects project
 comments: false
+cover: /images/og/2021-09-21-Big-brother-test.png
 ---
 
 Project: https://github.com/k1m0ch1/big-brother-test

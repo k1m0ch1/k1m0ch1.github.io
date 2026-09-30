@@ -4,6 +4,7 @@ title:  "Hello World!"
 date:   2016-12-04 11:48:00 +0700
 categories: jekyll update blogs blog
 comments: false
+cover: /images/og/2016-12-04-Hello-World.png
 ---
 
 When epicurus said about the three way of happines about to _culture_ mind rather than having a view of scenery to entertain mind, its succesfully change my mind about having a refreshment. The way to clear your mind, to release the distress of your mind, to get out the harsness of daily life only with culturing your mind.

@@ -4,6 +4,7 @@ title:  "axios kena supply chain attack"
 date:   2026-03-31 12:00:00 +0700
 categories: security blogs blog supplychain nodejs
 comments: true
+cover: /images/og/2026-03-31-axios-supply-chain-attack.png
 ---
 
 AXIOS kena supply chain attack ANJENGGGG  😂 😂😂😂😂😂😂

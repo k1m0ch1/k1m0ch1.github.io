@@ -4,6 +4,7 @@ title:  "Web Developer Security Checklist"
 date:   2018-07-10 22:33:00 +0700
 categories: stressfull daily blogs blog
 comments: true
+cover: /images/og/2018-07-10-Web-developer-security-checklist.png
 ---
 
 

@@ -4,6 +4,7 @@ title:  "Bypass MIME Upload Filter - Header Manipulation"
 date:   2016-12-04 16:01:00 +0700
 categories: bypass upload MIME filter extension blogs blog
 comments: false
+cover: /images/og/2016-12-04-Bypass-MIME-Upload-Filter.png
 ---
  
 Untuk melakukan upload filter yang dilakukan whitelist dalam bentuk MIME seperti muncul pada code PHP berikut :

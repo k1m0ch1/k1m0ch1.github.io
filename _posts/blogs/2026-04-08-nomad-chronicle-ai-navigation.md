@@ -4,6 +4,7 @@ title:  "Install Nomad Multi-Region di chronicle.rip: Full AI Navigation dari No
 date:   2026-04-08 14:00:00 +0700
 categories: nomad infrastructure devops ai claudecode blogs blog
 comments: true
+cover: /images/og/2026-04-08-nomad-chronicle-ai-navigation.png
 ---
 
 gw baru aja selesai build Nomad cluster multi-region buat [chronicle.rip](https://chronicle.rip) — mapping platform yang serve user di 86 negara. 3 region (Singapore, Australia, US), 6 VM, federated Nomad cluster, Headscale VPN mesh, zero public IP, dan semuanya di-navigate pake AI.

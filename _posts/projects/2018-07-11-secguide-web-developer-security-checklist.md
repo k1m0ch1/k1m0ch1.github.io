@@ -4,6 +4,7 @@ title:  "SecGuide - Web Developer Security Checklist"
 date:   2018-07-10 16:01:00 +0700
 categories: projects project
 comments: false
+cover: /images/og/2018-07-11-secguide-web-developer-security-checklist.png
 ---
 
 Dari data pada website zone-h.org dijelaskan hampir satu hari hacker mampu melakukan deface sebanyak 5 sampai 20 website bersamaan.

@@ -4,6 +4,7 @@ title:  "LFI php://filter"
 date:   2016-12-04 13:42:00 +0700
 categories: vulnhub pwnlab blogs blog
 comments: false
+cover: /images/og/2016-12-04-LFI-php-filter.png
 ---
 
 Jenis jenis LFI muncul dalam berbagai jenis terutama pada contoh kasus ini target mematikan mod allow_url_include dan dibanding menggunakan include, target menggunakan require_once dan script harus di append menggunakan .php extension pada akhir file. 

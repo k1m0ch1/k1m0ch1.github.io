@@ -4,6 +4,7 @@ title:  "1 Minggu dengan VIM : bagaimana saya meningkatkan produktifitas ngoding
 date:   2020-10-22 02:00:00 +0700
 categories: vim blogs blog
 comments: true
+cover: /images/og/2020-10-22-1-Minggu-dengan-vim.png
 ---
 
 Beberapa orang pasti pernah panik, terjebak di terminal tiba tiba buka editor dan ga bisa keluar, antara bakal nanya orang atau terminalnya di force close, akhirnya bisa keluar dengan perintah `:!q`

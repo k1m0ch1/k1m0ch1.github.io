@@ -4,6 +4,7 @@ title:  "Facebook Bot - Very first time to learn bot"
 date:   2010-10-10 16:01:00 +0700
 categories: projects project
 comments: false
+cover: /images/og/2010-10-10-facebook-bot.png
 ---
 The Project : https://github.com/k1m0ch1/m.facebootbotpy
 

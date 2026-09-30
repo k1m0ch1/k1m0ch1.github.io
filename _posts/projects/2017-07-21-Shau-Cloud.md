@@ -4,6 +4,7 @@ title:  "Shau Cloud - The Art exhibition with rasp pi"
 date: 2017-07-21 16:01:00 +0700
 categories: projects project
 comments: false
+cover: /images/og/2017-07-21-Shau-Cloud.png
 ---
 The Project : https://github.com/k1m0ch1/shau-cloud
 

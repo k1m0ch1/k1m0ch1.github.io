@@ -4,6 +4,7 @@ title:  "Basic Web Hacking - Introduction - part1"
 date:   2016-12-16 10:41:00 +0700
 categories: jekyll update blogs blog
 comments: false
+cover: /images/og/2016-12-16-Basic-Web-Hacking-Introduction-part1.png
 ---
 
 note : sebelum masuk ke dalam materi ini, tolong untuk dipahami dari artikel berikut [RTFG==Antara budaya kebutuhan](https://medium.com/sadulur/rtfg-antara-budaya-kebutuhan-9267f995e464#.fy9nqrnt3)

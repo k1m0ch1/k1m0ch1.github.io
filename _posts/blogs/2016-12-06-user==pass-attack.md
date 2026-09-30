@@ -4,6 +4,7 @@ title:  "User==Pass attack"
 date:   2016-12-06 18:47:00 +0700
 categories: same user pass attack blogs blog
 comments: false
+cover: /images/og/2016-12-06-user==pass-attack.png
 ---
 
 Dictionary attack,  bruteforce attack, soceng serangan serangan yang sudah pada umum kalau hacker udah ga mampu lagi nyerang target dengan cara cara yang halus. Serangan ini seperti memaksa membuka pintu dengan 1000 kunci yang dicoba satu satu. ga efektif dan serangan ini biasanya tidak diperbolehkan untuk digunakan pada CTF ataupun Bug Bounty karena jenis lubang keamanan ini bagi para security engginer sangat tidak rasional dikarenakan serangan ini cukup membutuhkan "*insting*" yang beketergantungan dengan "*luck*"

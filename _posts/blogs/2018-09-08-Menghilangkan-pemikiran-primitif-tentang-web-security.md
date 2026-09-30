@@ -4,6 +4,7 @@ title:  "Menghilangkan pemikiran primitif tentang web security"
 date:   2018-09-08 22:33:00 +0700
 categories: stressfull daily blogs blog
 comments: true
+cover: /images/og/2018-09-08-Menghilangkan-pemikiran-primitif-tentang-web-security.png
 ---
 
 

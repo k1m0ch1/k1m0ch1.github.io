@@ -4,6 +4,7 @@ title:  "Concept Security Guidelines for Developer"
 date:   2017-06-13 18:49:00 +0700
 categories: Concept Security Guidelines for Developer blogs blog
 comments: false
+cover: /images/og/2017-06-13-Concept-Security-Guidelines-for-Developer.png
 ---
 
 About 5 months break from writing some blog I have so many jobs penetration testing and the timeline is really short, so I don't have any time to update my blog. About 5 project for every months I have to finish all the penetration testing in short time, so many bug I found and so many reckless in such a big infrastructure. Because of many bugs found by the reckless of developer, now I have planning for making a developer security guidelines.

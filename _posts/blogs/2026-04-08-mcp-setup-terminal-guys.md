@@ -4,6 +4,7 @@ title:  "Setup MCP yang Bikin Claude Code Jadi Senjata: dari Terminal Guys untuk
 date:   2026-04-08 12:00:00 +0700
 categories: ai mcp claudecode blogs blog
 comments: true
+cover: /images/og/2026-04-08-mcp-setup-terminal-guys.png
 ---
 
 gw bukan orang yang suka buka IDE terus klik-klik. gw terminal guys. tmux di linux server, windows buat daily driver, dan semua kerjaan gw lewat CLI. jadi waktu AI coding tools mulai rame, gw ga tertarik sama sekali sama yang model-model kayak open-claw, nemo-claw, atau apalah nama-nama hype tool yang tiap minggu muncul terus ilang.

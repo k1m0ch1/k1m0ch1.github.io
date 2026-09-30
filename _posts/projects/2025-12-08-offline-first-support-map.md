@@ -4,6 +4,7 @@ title:  "RFC - Offline First Support for pinpoint map"
 date:   2025-12-08 16:01:00 +0700
 categories: projects project
 comments: false
+cover: /images/og/2025-12-08-offline-first-support-map.png
 ---
 
 ## Problem and Motivation
