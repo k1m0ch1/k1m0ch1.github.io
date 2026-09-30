@@ -120,3 +120,27 @@ make clean         # remove generated files/cache
    ```bash
    make serve
    ```
+
+---
+
+## Share cards (Open Graph / X)
+
+Every post unfurls with its own 1200x630 card. `_includes/head.html` reads
+`og:image` from the post's `cover:` front matter, and falls back to
+`/images/og-default.png` when there is none — one generic card for the whole
+site, which is why sharing any older post used to look the same.
+
+```bash
+python tools/gen-og-cards.py           # after adding a post
+python tools/gen-og-cards.py --check   # what is missing, change nothing
+```
+
+It draws `images/og/<post file name>.png` (category kicker, title auto-fitted to
+three lines, date and author) and inserts the matching `cover:` line, preserving
+the line ending the file already uses so the diff stays one line. A post with a
+hand-made cover keeps it — `2026-09-28-AI-fatigue` uses `ai-fatigue-cover.png`.
+
+X caches cards **per URL**, so an already-shared link can keep showing an old
+card after the tags change. A brand-new link is immediate; for an old one, force
+a re-crawl with the Card Validator while logged in, or share it once with a
+`?v=2` cache buster.
