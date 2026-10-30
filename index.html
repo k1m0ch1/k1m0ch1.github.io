@@ -14,8 +14,14 @@ title: Home
     </p>
     <p>
       This is where I write down what I learned the hard way: infrastructure, security,
-      and lately how to actually get real work done with AI. I've talked about some of it at
-      HashiConf, OpenInfra and PyCon ID.
+      and lately how to actually get real work done with AI.
+    </p>
+    {% assign stages_page = site.pages | where: "name", "stages.html" | first %}
+    <p>
+      I also say it out loud, mostly in English: {{ stages_page.talks.size }} stages so far, from
+      HashiConf Global in California and OpenInfra Summit Asia in South Korea to PyCon ID,
+      HashiTalks and Positive Hack Talks.
+      <a class="link" href="{{ '/stages' | prepend: site.baseurl }}">Watch the talks →</a>
     </p>
     <p class="home-intro-links">
       <a class="link" href="{{ '/about' | prepend: site.baseurl }}">More about me →</a>

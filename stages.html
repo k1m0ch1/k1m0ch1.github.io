@@ -1,0 +1,128 @@
+---
+layout: page
+title: Stages
+permalink: /stages/
+description: "Talks by Yahya F. Al Fatih at HashiConf, HashiTalks, OpenInfra Summit Asia, PyCon ID and Positive Hack Talks."
+talks:
+  - event: Hacktiv8 Technical Workshop
+    title: "Pentesting After AI: Semakin Relevan, Semakin Dibutuhkan"
+    where: Online
+    when: 22 May 2026
+    youtube: 91Go7KCypqU
+  - event: PyCon ID 2025
+    title: Python is Dead
+    where: Trilogi University, Jakarta
+    when: 13 Dec 2025
+    poster: /images/stages/pycon-id-2025.jpg
+    poster_alt: "PyCon ID 2025 speaker poster: Python is Dead, Yahya F. Alfatih"
+    link: https://www.linkedin.com/posts/yahyafalfatih_pyconid2025-python-softwareengineering-activity-7404358582043123712-NyQF
+    note: No recording yet, so here is the poster.
+  - event: Hacktiv8 Technical Workshop
+    title: "Hack the Basics: Your First Step into Ethical Hacking & Cyber Defense"
+    where: Online
+    when: 16 Oct 2025
+    youtube: gNm38UQD_yU
+  - event: Positive Hack Talks 2025
+    title: Automating the entire pentest lifecycle with AI (MCP pentesting)
+    where: Jakarta
+    when: 23 Jul 2025
+    youtube: dfbZJ5AcubY
+    note: Event highlights reel.
+  - event: OpenInfra Summit Asia 2024
+    title: Four-Years Case Study Using Nomad Container Orchestrator at eFishery
+    where: Suwon, South Korea
+    when: Sep 2024
+    youtube: 7IpxAbK-hS8
+  - event: HashiTalks 2024
+    title: Self-Build CI/CD for the HashiCorp stack
+    where: Online
+    when: Feb 2024
+    youtube: Ny2fhusXvC4
+    thumb: hqdefault
+  - event: HashiConf Global 2022
+    title: How eFishery uses Nomad, Vault and Consul for Rural Edge Deployments
+    where: Los Angeles, California
+    when: Oct 2022
+    youtube: qHzROKjGcWY
+  - event: PyCon ID 2021
+    title: The Importance of Python for Ethical Hacking
+    where: Online
+    when: 2021
+    youtube: n4rtKOB-G0s
+  - event: PyCon ID 2020
+    title: The Experience of Fast with FastAPI
+    where: Online
+    when: 2020
+    youtube: QKCERJtDj84
+  - event: Invofest 2018
+    title: Cyber Security workshop
+    where: Politeknik Harapan Bersama, Tegal
+    when: Oct 2018
+    link: https://eventkampus.com/event/detail/2162/seminar-nasional-invofest-2018-informatics-vocational-festival
+    note: Before talks were recorded.
+---
+
+<p class="stages-lead">
+  Rooms I've stood in front of, live or from a webcam. Mostly about running
+  infrastructure in places it was never meant to run, and breaking things on purpose
+  so they get safer.
+</p>
+
+<div class="stages-grid">
+  {% for talk in page.talks %}
+  <article class="stage-card">
+    {% if talk.youtube %}
+      {% assign thumb = talk.thumb | default: 'maxresdefault' %}
+      <a class="stage-media stage-play"
+         href="https://www.youtube.com/watch?v={{ talk.youtube }}"
+         data-yt="{{ talk.youtube }}"
+         aria-label="Play: {{ talk.title | escape }}">
+        <img src="https://i.ytimg.com/vi/{{ talk.youtube }}/{{ thumb }}.jpg"
+             alt="{{ talk.event | escape }}: {{ talk.title | escape }}" loading="lazy">
+        <span class="stage-play-icon" aria-hidden="true"></span>
+      </a>
+    {% elsif talk.poster %}
+      <a class="stage-media stage-poster" href="{{ talk.link }}" target="_blank" rel="noopener">
+        <img src="{{ talk.poster | prepend: site.baseurl }}" alt="{{ talk.poster_alt | escape }}" loading="lazy">
+      </a>
+    {% endif %}
+    <div class="stage-body">
+      <p class="stage-event">{{ talk.event }}</p>
+      <h2 class="stage-title">{{ talk.title }}</h2>
+      <p class="stage-meta">{{ talk.where }} · {{ talk.when }}</p>
+      {% if talk.note %}<p class="stage-note">{{ talk.note }}</p>{% endif %}
+      {% unless talk.youtube or talk.poster %}{% if talk.link %}<p class="stage-note"><a href="{{ talk.link }}" target="_blank" rel="noopener">Event page →</a></p>{% endif %}{% endunless %}
+    </div>
+  </article>
+  {% endfor %}
+</div>
+
+<p class="stages-cta">
+  Want me on your stage? Ping me on
+  <a href="https://x.com/{{ site.twitter_username }}">X</a> or
+  <a href="mailto:{{ site.author.email }}">email</a>.
+</p>
+
+{%- comment -%}
+  Lite embed: a thumbnail until clicked, so the page does not load seven YouTube
+  players up front. Without JS the thumbnail is a plain link to YouTube.
+{%- endcomment -%}
+<script>
+  (function () {
+    var ID = /^[A-Za-z0-9_-]{11}$/;
+    document.querySelectorAll(".stage-play").forEach(function (el) {
+      el.addEventListener("click", function (e) {
+        var id = el.getAttribute("data-yt");
+        if (!ID.test(id)) return;
+        e.preventDefault();
+        var f = document.createElement("iframe");
+        f.src = "https://www.youtube-nocookie.com/embed/" + id + "?autoplay=1&rel=0";
+        f.title = el.getAttribute("aria-label") || "YouTube video";
+        f.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+        f.allowFullscreen = true;
+        f.className = "stage-frame";
+        el.replaceWith(f);
+      });
+    });
+  })();
+</script>
