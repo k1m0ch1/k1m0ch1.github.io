@@ -8,24 +8,17 @@ title: Home
   <div class="container">
     <h1 class="home-intro-title">Hi, I'm Yahya.</h1>
     <p class="home-intro-lead">
-      Platform engineer from Indonesia with 9+ years of keeping production alive —
-      building CI/CD that 10+ squads ship with, migrating Nomad to Kubernetes with zero downtime,
-      cutting cloud bills, and breaking things on purpose as a security engineer.
+      Platform engineer from Indonesia. 9+ years keeping production alive,
+      and breaking it on purpose to make it safer.
     </p>
     <p>
-      This is where I write down what I learned the hard way: infrastructure, security,
-      and lately how to actually get real work done with AI.
-    </p>
-    {% assign stages_page = site.pages | where: "name", "stages.html" | first %}
-    <p>
-      I also say it out loud, mostly in English: {{ stages_page.talks.size }} stages so far, from
-      HashiConf Global in California and OpenInfra Summit Asia in South Korea to PyCon ID,
-      HashiTalks and Positive Hack Talks.
-      <a class="link" href="{{ '/stages' | prepend: site.baseurl }}">Watch the talks →</a>
+      I write here about infra, security and AI. I also speak about it, mostly in English,
+      at HashiConf, OpenInfra Summit, PyCon ID and more.
     </p>
     <p class="home-intro-links">
-      <a class="link" href="{{ '/about' | prepend: site.baseurl }}">More about me →</a>
+      <a class="link" href="{{ '/stages' | prepend: site.baseurl }}">Talks →</a>
       <a class="link" href="{{ '/projects' | prepend: site.baseurl }}">Projects →</a>
+      <a class="link" href="{{ '/about' | prepend: site.baseurl }}">About →</a>
       <a class="link" href="https://x.com/{{ site.twitter_username }}">Say hi on X →</a>
     </p>
   </div>
