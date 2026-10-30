@@ -370,6 +370,33 @@ $sidebar-width: 260px;
   margin-top: $base-spacing * 2;
 }
 
+// Home page intro
+.home-intro {
+  .container {
+    padding-bottom: 0;
+  }
+
+  .home-intro-title {
+    font-size: rem(28);
+    color: $primary-color;
+    margin: 0 0 0.4em;
+  }
+
+  .home-intro-lead {
+    font-size: rem(18);
+    color: $dark-gray-color;
+  }
+
+  .home-intro-links {
+    margin-top: $small-spacing;
+
+    a {
+      margin-right: 1.2em;
+      white-space: nowrap;
+    }
+  }
+}
+
 // About page, CV style
 .cv {
   .cv-header {

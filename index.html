@@ -3,6 +3,29 @@ layout: default
 title: Home
 ---
 
+{% if paginator.page == 1 %}
+<section class="home-intro">
+  <div class="container">
+    <h1 class="home-intro-title">Hi, I'm Yahya.</h1>
+    <p class="home-intro-lead">
+      Platform engineer from Indonesia with 9+ years of keeping production alive —
+      building CI/CD that 10+ squads ship with, migrating Nomad to Kubernetes with zero downtime,
+      cutting cloud bills, and breaking things on purpose as a security engineer.
+    </p>
+    <p>
+      This is where I write down what I learned the hard way: infrastructure, security,
+      and lately how to actually get real work done with AI. I've talked about some of it at
+      HashiConf, OpenInfra and PyCon ID.
+    </p>
+    <p class="home-intro-links">
+      <a class="link" href="{{ '/about' | prepend: site.baseurl }}">More about me →</a>
+      <a class="link" href="{{ '/projects' | prepend: site.baseurl }}">Projects →</a>
+      <a class="link" href="https://x.com/{{ site.twitter_username }}">Say hi on X →</a>
+    </p>
+  </div>
+</section>
+{% endif %}
+
 <section class="post-list">
   <div class="container" >
     {% for post in paginator.posts %}
