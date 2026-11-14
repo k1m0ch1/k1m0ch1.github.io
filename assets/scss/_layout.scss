@@ -300,6 +300,42 @@ $sidebar-width: 260px;
     margin: $base-spacing auto;
   }
 
+  // Images are wrapped in a link (see _layouts/post.html) that opens the
+  // full-size original in a new tab.
+  a.img-zoom {
+    display: block;
+    border-bottom: 0;
+    cursor: zoom-in;
+
+    img {
+      cursor: zoom-in;
+    }
+  }
+
+  // Several images in one paragraph: lay them out in a row and wrap onto the
+  // next line only once the right edge of the column is reached.
+  p.img-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: $small-spacing;
+    margin: $base-spacing 0;
+
+    br {
+      display: none;
+    }
+
+    a.img-zoom {
+      flex: 0 1 auto;
+      max-width: 100%;
+    }
+
+    img {
+      margin: 0;
+    }
+  }
+
   // X/Twitter embeds: half the default width, centred in the column.
   .twitter-tweet-rendered {
     margin-left: auto !important;

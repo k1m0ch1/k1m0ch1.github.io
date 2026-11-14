@@ -16,6 +16,37 @@ layout: default
 {% include comments.html %}
 
 <script>
+/* Click any image in the post to open the full-size original in a new tab. */
+(function() {
+  document.querySelectorAll('.post-content img').forEach(function(img) {
+    if (img.closest('a')) return; /* already a link, leave it alone */
+    var src = img.currentSrc || img.src;
+    if (!src) return;
+    var a = document.createElement('a');
+    a.href = src;
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    a.className = 'img-zoom';
+    a.title = 'Open full size in a new tab';
+    img.parentNode.insertBefore(a, img);
+    a.appendChild(img);
+  });
+
+  /* A paragraph that holds only images (2 or more) becomes a row: images sit
+     side by side and wrap to the next line only when the column runs out. */
+  document.querySelectorAll('.post-content p').forEach(function(p) {
+    var zooms = p.querySelectorAll(':scope > a.img-zoom');
+    if (zooms.length < 2) return;
+    var onlyImages = Array.prototype.every.call(p.childNodes, function(n) {
+      if (n.nodeType === 3) return n.textContent.trim() === '';
+      return n.nodeType === 1 && (n.matches('a.img-zoom') || n.tagName === 'BR');
+    });
+    if (onlyImages) p.classList.add('img-row');
+  });
+})();
+</script>
+
+<script>
 (function() {
   var tweetPattern = /^https?:\/\/(twitter\.com|x\.com)\/[^\/]+\/status\/\d+\/?$/;
   var hasTweet = false;
