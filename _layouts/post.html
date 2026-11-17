@@ -55,8 +55,11 @@ layout: default
     var blockquote = document.createElement('blockquote');
     blockquote.className = 'twitter-tweet';
     blockquote.setAttribute('data-dnt', 'true');
-    /* Render X posts at half the default width and centre them in the column. */
-    blockquote.setAttribute('data-width', '275');
+    /* Show only the post that was linked: for a reply, hide the parent
+       tweet above it. Use X's max width (550) so it fills the column
+       without towering; the widget shrinks to fit narrow screens. */
+    blockquote.setAttribute('data-conversation', 'none');
+    blockquote.setAttribute('data-width', '550');
     blockquote.setAttribute('data-align', 'center');
     var a = document.createElement('a');
     a.href = url;
@@ -95,6 +98,79 @@ layout: default
 
   window.twttr.ready(function(twttr) {
     twttr.widgets.load();
+  });
+})();
+</script>
+
+<script>
+(function() {
+  /* A bare YouTube URL (cut and pasted on its own line, or a link that is
+     alone in its paragraph) becomes a playable embed. Understands
+     watch?v=, youtu.be, shorts/, live/, embed/ and the ?t= / &t= timestamp
+     (works with both 116 and 1m56s). */
+  var ytPattern = /^(?:https?:\/\/)?(?:www\.|m\.|music\.)?(?:youtube\.com\/(?:watch\?(?:.*&)?v=|shorts\/|live\/|embed\/|v\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/i;
+
+  function startSeconds(url) {
+    var m = url.match(/[?&#](?:t|start)=([0-9hms]+)/i);
+    if (!m) return 0;
+    if (/^[0-9]+$/.test(m[1])) return parseInt(m[1], 10);
+    var total = 0, part, unit;
+    var re = /([0-9]+)([hms])/gi;
+    while ((part = re.exec(m[1]))) {
+      unit = part[2].toLowerCase();
+      total += parseInt(part[1], 10) * (unit === 'h' ? 3600 : unit === 'm' ? 60 : 1);
+    }
+    return total;
+  }
+
+  function makeEmbed(url, el) {
+    var m = url.match(ytPattern);
+    if (!m) return;
+
+    var wrap = document.createElement('div');
+    wrap.className = 'yt-embed';
+
+    var frame = document.createElement('div');
+    frame.className = 'yt-frame';
+
+    var iframe = document.createElement('iframe');
+    var start = startSeconds(url);
+    iframe.src = 'https://www.youtube-nocookie.com/embed/' + m[1] + '?rel=0' +
+                (start ? '&start=' + start : '');
+    iframe.title = 'YouTube video player';
+    iframe.setAttribute('loading', 'lazy');
+    iframe.setAttribute('frameborder', '0');
+    iframe.setAttribute('allowfullscreen', '');
+    iframe.setAttribute('allow', 'accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+    frame.appendChild(iframe);
+
+    var source = document.createElement('a');
+    source.className = 'yt-source';
+    source.href = url;
+    source.target = '_blank';
+    source.rel = 'noopener noreferrer';
+    source.textContent = 'Watch on YouTube';
+
+    wrap.appendChild(frame);
+    wrap.appendChild(source);
+    el.replaceWith(wrap);
+  }
+
+  /* A link that is the only thing in its paragraph. */
+  document.querySelectorAll('.post-content p > a[href]').forEach(function(a) {
+    var p = a.parentElement;
+    if (p.childNodes.length !== 1) return;
+    if (!ytPattern.test(a.getAttribute('href').trim())) return;
+    makeEmbed(a.getAttribute('href').trim(), p);
+  });
+
+  /* A plain URL on its own line: kramdown leaves it as text, so the whole
+     paragraph is the URL. A URL never contains whitespace. */
+  document.querySelectorAll('.post-content p').forEach(function(p) {
+    var text = p.textContent.trim();
+    if (!text || /\s/.test(text)) return;
+    if (!ytPattern.test(text)) return;
+    makeEmbed(text, p);
   });
 })();
 </script>

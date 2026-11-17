@@ -336,10 +336,55 @@ $sidebar-width: 260px;
     }
   }
 
-  // X/Twitter embeds: half the default width, centred in the column.
+  // X/Twitter embeds: centred in the column. X caps the wrapper at the
+  // data-width set in post.html (550px) and it is width:100% below that, so
+  // only the auto margins are needed. Don't override its max-width/flex.
+  // (The iframe is its own flex item and stretches to the wrapper.)
   .twitter-tweet-rendered {
     margin-left: auto !important;
     margin-right: auto !important;
+    margin-bottom: $base-spacing !important;
+  }
+
+  // YouTube embeds (see _layouts/post.html): responsive 16:9 box, centred,
+  // loaded lazily so nothing is fetched until it is scrolled into view.
+  .yt-embed {
+    max-width: 640px;
+    margin: $base-spacing auto;
+  }
+
+  .yt-frame {
+    position: relative;
+    width: 100%;
+    height: 0;
+    // 16:9, expressed as padding so no Sass division is involved.
+    padding-top: 56.25%;
+    background-color: $black-color;
+    overflow: hidden;
+
+    iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      border: 0;
+    }
+  }
+
+  .yt-source {
+    display: block;
+    margin-top: $small-spacing / 2;
+    font-size: rem(12);
+    text-align: right;
+    color: $medium-gray-color;
+    border-bottom: 0;
+
+    &:hover,
+    &:focus {
+      color: $blue-color;
+    }
   }
 }
 
