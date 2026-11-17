@@ -41,6 +41,11 @@
   <meta name="description" content="{{ page_description }}">
   <meta name="keywords" content="{% if page.keywords %}{{ page.keywords }}{% else %}{{ site.keywords }}{% endif %}">
 
+  {% if page.og_card == false %}
+  <!-- the cover already carries the title: the share-card worker should leave it alone -->
+  <meta name="komen:og-card" content="none">
+  {% endif %}
+
   <meta name="HandheldFriendly" content="True">
   <meta name="MobileOptimized" content="320">
 
